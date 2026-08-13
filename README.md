@@ -1,4 +1,4 @@
-# กล่องข้าวน้อย (A Mother's Walk) — Midterm Project
+# ฮอดมื้อใหม่ (A New Dawn) — Midterm Project
 
 **รายวิชา:** CP410844 Computer Game Development  
 **วิทยาลัยการคอมพิวเตอร์ มหาวิทยาลัยขอนแก่น**
