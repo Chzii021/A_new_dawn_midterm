@@ -3,6 +3,7 @@ extends Node
 const SAVE_PATH := "user://savegame.cfg"
 const WORLD_SCENE := "res://scenes/world.tscn"
 const VILLAGE_SCENE := "res://scenes/village.tscn"
+const OPENING_STORY_SCENE := "res://scenes/opening_story.tscn"
 
 var game_active := false
 var _loaded_position := Vector2.ZERO
@@ -27,7 +28,7 @@ func start_new_game() -> void:
 	game_active = true
 	_has_loaded_position = false
 	save_game()
-	get_tree().change_scene_to_file(WORLD_SCENE)
+	get_tree().change_scene_to_file(OPENING_STORY_SCENE)
 
 
 func load_game() -> bool:
