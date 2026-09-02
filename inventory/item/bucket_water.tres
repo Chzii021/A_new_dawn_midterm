@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="InvItem" format=3 uid="uid://ukwqhhkh6dhk"]
+
+[ext_resource type="Script" uid="uid://dwqo51p6jj6gf" path="res://inventory/inventory_item.gd" id="1_vp28w"]
+[ext_resource type="Texture2D" uid="uid://bd5fqv7kwsbf7" path="res://art/objects/backet_water.png" id="2_vp28w"]
+
+[resource]
+script = ExtResource("1_vp28w")
+name = "bucket_water"
+texture = ExtResource("2_vp28w")
+metadata/_custom_type_script = "uid://dwqo51p6jj6gf"

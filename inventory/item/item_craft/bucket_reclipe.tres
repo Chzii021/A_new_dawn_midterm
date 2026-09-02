@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CraftRecipe" format=3 uid="uid://b3f0qhej1hv1v"]
+
+[ext_resource type="Script" uid="uid://yndvrriqd716" path="res://Craft/CraftRequirement.gd" id="1_np3oa"]
+[ext_resource type="Resource" uid="uid://pfs8ew2ooapc" path="res://inventory/item/wood.tres" id="2_fqyco"]
+[ext_resource type="Resource" uid="uid://djv8iutb8mgny" path="res://inventory/item/bucket.tres" id="3_fqyco"]
+[ext_resource type="Script" uid="uid://fn00m4vtibsf" path="res://Craft/CraftRecipe.gd" id="5_t4i06"]
+
+[sub_resource type="Resource" id="Resource_tbhy6"]
+script = ExtResource("1_np3oa")
+item = ExtResource("2_fqyco")
+amount = 5
+metadata/_custom_type_script = "uid://yndvrriqd716"
+
+[resource]
+script = ExtResource("5_t4i06")
+result_item = ExtResource("3_fqyco")
+requirements = Array[ExtResource("1_np3oa")]([SubResource("Resource_tbhy6")])
+metadata/_custom_type_script = "uid://fn00m4vtibsf"

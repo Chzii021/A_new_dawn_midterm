@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://cyuucgun1oipm"]
+
+[ext_resource type="Script" uid="uid://0mxm8okntw4g" path="res://props/plants/plants.gd" id="1_nk6fs"]
+[ext_resource type="Texture2D" uid="uid://bsv6nvcqf1447" path="res://props/sprites/Props.png" id="2_be1nw"]
+[ext_resource type="PackedScene" uid="uid://eottg8tgbovj" path="res://Genneral/HitBox/hit_box.tscn" id="3_0woj6"]
+[ext_resource type="AudioStream" uid="uid://chcv1hne4y4ta" path="res://sound/bush_03.wav" id="4_be1nw"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3h1uy"]
+
+[node name="Plants" type="Node2D" unique_id=1863846474]
+y_sort_enabled = true
+script = ExtResource("1_nk6fs")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=608989612]
+position = Vector2(0, -1)
+texture = ExtResource("2_be1nw")
+hframes = 16
+vframes = 3
+
+[node name="HitBox" parent="." unique_id=1779108478 instance=ExtResource("3_0woj6")]
+position = Vector2(0, -1)
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=5004539]
+position = Vector2(0, 5.0648193)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_3h1uy")
+
+[node name="Sound" type="AudioStreamPlayer2D" parent="." unique_id=1836242717]
+stream = ExtResource("4_be1nw")

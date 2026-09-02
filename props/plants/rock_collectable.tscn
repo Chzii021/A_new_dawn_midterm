@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://bcphc31qupxd6"]
+
+[ext_resource type="Script" uid="uid://dvv20075gbfe7" path="res://props/plants/collectable.gd" id="1_hb7wu"]
+[ext_resource type="Texture2D" uid="uid://pb733ut0mk65" path="res://art/objects/rock.png" id="1_lpadb"]
+[ext_resource type="Resource" uid="uid://bti50ms7l5hhx" path="res://inventory/item/rock.tres" id="2_hb7wu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h412h"]
+radius = 5.7174215
+
+[node name="rock_collectable" type="StaticBody2D" unique_id=718939528]
+z_index = -1
+script = ExtResource("1_hb7wu")
+item = ExtResource("2_hb7wu")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1732906426]
+rotation = -0.16356468
+scale = Vector2(0.39068222, 0.39068222)
+texture = ExtResource("1_lpadb")
+
+[node name="interactable_area" type="Area2D" parent="." unique_id=438509835]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="interactable_area" unique_id=1755077030]
+scale = Vector2(1.4101213, 1.4101213)
+shape = SubResource("CircleShape2D_h412h")
+
+[connection signal="body_entered" from="interactable_area" to="." method="_on_interactable_area_body_entered"]
+[connection signal="body_exited" from="interactable_area" to="." method="_on_interactable_area_body_exited"]

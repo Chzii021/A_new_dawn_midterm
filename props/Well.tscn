@@ -1,0 +1,113 @@
+[gd_scene format=3 uid="uid://bar03xa6w6uy0"]
+
+[ext_resource type="Script" uid="uid://bc2nq3tybixof" path="res://props/well.gd" id="1_ifcx7"]
+[ext_resource type="Script" uid="uid://yndvrriqd716" path="res://Craft/CraftRequirement.gd" id="2_bmjam"]
+[ext_resource type="Texture2D" uid="uid://dl3n61rr8kfu2" path="res://art/objects/well.png" id="2_q1sby"]
+[ext_resource type="Resource" uid="uid://bti50ms7l5hhx" path="res://inventory/item/rock.tres" id="3_lukl4"]
+[ext_resource type="Resource" uid="uid://pfs8ew2ooapc" path="res://inventory/item/wood.tres" id="3_m60di"]
+[ext_resource type="Resource" uid="uid://djv8iutb8mgny" path="res://inventory/item/bucket.tres" id="4_lqsj1"]
+[ext_resource type="Resource" uid="uid://ukwqhhkh6dhk" path="res://inventory/item/bucket_water.tres" id="5_mqen8"]
+[ext_resource type="Texture2D" uid="uid://3ap45lqwaugh" path="res://art/characters/Shadow.png" id="6_dc1bi"]
+[ext_resource type="PackedScene" uid="uid://ccr3imgi0nqge" path="res://Repair/repair_ui.tscn" id="8_lqsj1"]
+
+[sub_resource type="Resource" id="Resource_lakw3"]
+script = ExtResource("2_bmjam")
+item = ExtResource("3_m60di")
+amount = 10
+metadata/_custom_type_script = "uid://yndvrriqd716"
+
+[sub_resource type="Resource" id="Resource_onm2w"]
+script = ExtResource("2_bmjam")
+item = ExtResource("3_lukl4")
+amount = 5
+metadata/_custom_type_script = "uid://yndvrriqd716"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2xehy"]
+atlas = ExtResource("2_q1sby")
+region = Rect2(1408, 17, 648, 707)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5bcqb"]
+atlas = ExtResource("2_q1sby")
+region = Rect2(124, 17, 643, 707)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lukl4"]
+atlas = ExtResource("2_q1sby")
+region = Rect2(760, 17, 648, 707)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h412h"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2xehy")
+}],
+"loop": 1,
+"name": &"broke",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5bcqb")
+}],
+"loop": 1,
+"name": &"well",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lukl4")
+}],
+"loop": 1,
+"name": &"well_dry",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c4w85"]
+radius = 5.7174215
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h412h"]
+radius = 2.098535
+height = 6.595396
+
+[node name="well" type="StaticBody2D" unique_id=356520196]
+y_sort_enabled = true
+scale = Vector2(3.3356602, 3.3356602)
+collision_layer = 16
+script = ExtResource("1_ifcx7")
+requirements = Array[ExtResource("2_bmjam")]([SubResource("Resource_lakw3"), SubResource("Resource_onm2w")])
+empty_bucket = ExtResource("4_lqsj1")
+water_bucket = ExtResource("5_mqen8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2036174903]
+position = Vector2(0, -3.5974886)
+scale = Vector2(0.018432835, 0.018432835)
+sprite_frames = SubResource("SpriteFrames_h412h")
+animation = &"well"
+
+[node name="ShadowSprite2D" type="Sprite2D" parent="AnimatedSprite2D" unique_id=1178665018]
+modulate = Color(0, 0, 0, 0.25882354)
+show_behind_parent = true
+position = Vector2(-1.1368684e-13, 195.16742)
+scale = Vector2(14.883839, 12.551978)
+texture = ExtResource("6_dc1bi")
+
+[node name="interactable_area" type="Area2D" parent="." unique_id=602429347]
+position = Vector2(0, -2.398326)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="interactable_area" unique_id=214751168]
+z_index = -1
+scale = Vector2(1.4101213, 1.4101213)
+shape = SubResource("CircleShape2D_c4w85")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2059129774]
+position = Vector2(0, -1.1991628)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_h412h")
+
+[node name="RepairUI" parent="." unique_id=630304382 instance=ExtResource("8_lqsj1")]
+offset_left = 2.098535
+offset_top = -16.78828
+offset_right = 2.098535
+offset_bottom = -16.78828
+
+[connection signal="body_entered" from="interactable_area" to="." method="_on_interactable_area_body_entered"]
+[connection signal="body_exited" from="interactable_area" to="." method="_on_interactable_area_body_exited"]

@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://cdm8nfqqbisan"]
+
+[ext_resource type="Script" uid="uid://dvv20075gbfe7" path="res://props/plants/collectable.gd" id="1_8w51b"]
+[ext_resource type="Resource" uid="uid://c3q01nq0wl6yl" path="res://inventory/item/stick.tres" id="2_gne4f"]
+[ext_resource type="Texture2D" uid="uid://tglqds1okh2g" path="res://art/objects/stick-icon.png" id="2_nv3jk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h412h"]
+radius = 5.7174215
+
+[node name="stick_collectable" type="StaticBody2D" unique_id=718939528]
+z_index = -1
+script = ExtResource("1_8w51b")
+item = ExtResource("2_gne4f")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1732906426]
+rotation = 0.6285457
+texture = ExtResource("2_nv3jk")
+
+[node name="interactable_area" type="Area2D" parent="." unique_id=438509835]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="interactable_area" unique_id=1755077030]
+scale = Vector2(1.4101213, 1.4101213)
+shape = SubResource("CircleShape2D_h412h")
+
+[connection signal="body_entered" from="interactable_area" to="." method="_on_interactable_area_body_entered"]
+[connection signal="body_exited" from="interactable_area" to="." method="_on_interactable_area_body_exited"]

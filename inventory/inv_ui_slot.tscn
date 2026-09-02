@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://c38p4sjpfuqht"]
+
+[ext_resource type="Script" uid="uid://c5k8nwse6vs3c" path="res://inventory/inv_ui_slot.gd" id="1_fcwim"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uuv3w"]
+
+[node name="inv_UI_slot" type="Panel" unique_id=1756978705]
+self_modulate = Color(1, 1, 1, 0)
+texture_filter = 1
+custom_minimum_size = Vector2(64, 64)
+offset_left = -0.13424683
+offset_right = 63.865753
+offset_bottom = 64.0
+scale = Vector2(0.3319698, 0.32920018)
+theme_override_styles/panel = SubResource("StyleBoxFlat_uuv3w")
+script = ExtResource("1_fcwim")
+
+[node name="Panel" type="Panel" parent="." unique_id=1199014617]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1659080228]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="item_display" type="TextureRect" parent="CenterContainer" unique_id=1255458981]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="AmountMargin" type="MarginContainer" parent="." unique_id=1654503821]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_top = 37
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Label" type="Label" parent="AmountMargin" unique_id=1763378882]
+layout_mode = 2
+text = "12"
+horizontal_alignment = 2
+vertical_alignment = 2

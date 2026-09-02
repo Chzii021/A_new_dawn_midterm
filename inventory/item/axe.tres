@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="InvItem" format=3 uid="uid://khfnpwueusux"]
+
+[ext_resource type="Script" uid="uid://dwqo51p6jj6gf" path="res://inventory/inventory_item.gd" id="1_g8xk4"]
+[ext_resource type="Texture2D" uid="uid://cqaqavvlnwah8" path="res://art/objects/Axe.png" id="2_g8xk4"]
+
+[resource]
+script = ExtResource("1_g8xk4")
+name = "axe"
+texture = ExtResource("2_g8xk4")
+tree_damage_bonus = 1
+metadata/_custom_type_script = "uid://dwqo51p6jj6gf"

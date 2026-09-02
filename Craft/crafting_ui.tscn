@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://y4m67n30y7jg"]
+
+[ext_resource type="Script" uid="uid://c0e2t3u8c013d" path="res://Craft/crafting_ui.gd" id="1_w7otf"]
+[ext_resource type="Resource" uid="uid://duq4f8nlj3kp3" path="res://inventory/playerinv.tres" id="2_3t0k7"]
+[ext_resource type="Script" uid="uid://fn00m4vtibsf" path="res://Craft/CraftRecipe.gd" id="3_t12i1"]
+[ext_resource type="Resource" uid="uid://b10vb70ghynsd" path="res://inventory/item/item_craft/axe_recipe.tres" id="4_innby"]
+[ext_resource type="PackedScene" uid="uid://ca6l3ljpqxuce" path="res://Craft/craft_recipe_row.tscn" id="5_3t0k7"]
+[ext_resource type="Resource" uid="uid://b3f0qhej1hv1v" path="res://inventory/item/item_craft/bucket_reclipe.tres" id="5_t12i1"]
+[ext_resource type="PackedScene" uid="uid://rnss2qh4lusc" path="res://inventory/inventory_panel.tscn" id="7_innby"]
+
+[node name="CraftingUI" type="CanvasLayer" unique_id=602573327]
+script = ExtResource("1_w7otf")
+inv = ExtResource("2_3t0k7")
+recipes = Array[ExtResource("3_t12i1")]([ExtResource("4_innby"), ExtResource("5_t12i1")])
+recipe_row_scene = ExtResource("5_3t0k7")
+
+[node name="Root" type="Control" parent="." unique_id=2016152851]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Root" unique_id=856601585]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 37.0
+offset_right = 839.0
+offset_bottom = 437.0
+scale = Vector2(0.43344805, 0.43344805)
+
+[node name="MenuRow" type="HBoxContainer" parent="Root/CenterContainer" unique_id=1457287520]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="CraftPanel" type="PanelContainer" parent="Root/CenterContainer/MenuRow" unique_id=977507551]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="Root/CenterContainer/MenuRow/CraftPanel" unique_id=445336265]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBox" type="VBoxContainer" parent="Root/CenterContainer/MenuRow/CraftPanel/Margin" unique_id=20882016]
+layout_mode = 2
+
+[node name="TopBar" type="HBoxContainer" parent="Root/CenterContainer/MenuRow/CraftPanel/Margin/VBox" unique_id=1699947185]
+self_modulate = Color(0.15127042, 0.26063716, 0.23432097, 1)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Root/CenterContainer/MenuRow/CraftPanel/Margin/VBox/TopBar" unique_id=243956494]
+layout_mode = 2
+text = "CRAFTING"
+horizontal_alignment = 3
+
+[node name="CloseButton" type="Button" parent="Root/CenterContainer/MenuRow/CraftPanel/Margin/VBox/TopBar" unique_id=220751174]
+modulate = Color(0.8717161, 0.29650533, 0, 1)
+layout_mode = 2
+text = "X"
+
+[node name="RecipeScroll" type="ScrollContainer" parent="Root/CenterContainer/MenuRow/CraftPanel/Margin/VBox" unique_id=1299079995]
+custom_minimum_size = Vector2(400, 300)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RecipeList" type="VBoxContainer" parent="Root/CenterContainer/MenuRow/CraftPanel/Margin/VBox/RecipeScroll" unique_id=487211567]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="InventoryPanel" parent="Root/CenterContainer/MenuRow" unique_id=2028454381 instance=ExtResource("7_innby")]
+layout_mode = 2

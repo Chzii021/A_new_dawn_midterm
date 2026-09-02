@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="InvItem" format=3 uid="uid://qd848m1mlk7g"]
+
+[ext_resource type="Script" uid="uid://dwqo51p6jj6gf" path="res://inventory/inventory_item.gd" id="1_33wgx"]
+
+[resource]
+script = ExtResource("1_33wgx")
+name = "bucket_water"
+metadata/_custom_type_script = "uid://dwqo51p6jj6gf"

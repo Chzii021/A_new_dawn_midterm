@@ -1,0 +1,158 @@
+[gd_scene format=3 uid="uid://ca4u10dktfni5"]
+
+[ext_resource type="Script" uid="uid://cnaqmr2vf6717" path="res://script/papaya_collectable.gd" id="1_aschu"]
+[ext_resource type="Texture2D" uid="uid://bfl2oqj1bahp3" path="res://art/objects/papaya_.png" id="2_l2oy0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7sf0l"]
+atlas = ExtResource("2_l2oy0")
+region = Rect2(0, 0, 1254, 1254)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h412h"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7sf0l")
+}],
+"loop": 1,
+"name": &"papaya",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_8gj8a"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_kbxen"]
+resource_name = "fade"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 16)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0471975511965976]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_nx206"]
+resource_name = "papaya_falling"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 16)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0471975511965976]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fx7pn"]
+_data = {
+&"RESET": SubResource("Animation_8gj8a"),
+&"fade": SubResource("Animation_kbxen"),
+&"papaya_falling": SubResource("Animation_nx206")
+}
+
+[node name="papaya_collectable" type="StaticBody2D" unique_id=1606848814]
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("1_aschu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1944917053]
+scale = Vector2(0.021826683, 0.021826683)
+sprite_frames = SubResource("SpriteFrames_h412h")
+animation = &"papaya"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=809476493]
+libraries/ = SubResource("AnimationLibrary_fx7pn")

@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://c388dnewfgqkn"]
+
+[ext_resource type="Script" uid="uid://cobtynkaaiqat" path="res://props/pond.gd" id="1_xt72p"]
+[ext_resource type="Resource" uid="uid://djv8iutb8mgny" path="res://inventory/item/bucket.tres" id="2_f5e1k"]
+[ext_resource type="Resource" uid="uid://ukwqhhkh6dhk" path="res://inventory/item/bucket_water.tres" id="3_l2kan"]
+[ext_resource type="Texture2D" uid="uid://br3y5q7urkf2q" path="res://art/objects/Pool.png" id="4_ku3fd"]
+[ext_resource type="AudioStream" uid="uid://b0ruh0uea6xxu" path="res://sound/Scoop_water.wav" id="5_f5e1k"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_antxc"]
+atlas = ExtResource("4_ku3fd")
+region = Rect2(627, 627, 627, 627)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7vt6v"]
+atlas = ExtResource("4_ku3fd")
+region = Rect2(0, 627, 627, 627)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h412h"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_antxc")
+}],
+"loop": 1,
+"name": &"dry",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7vt6v")
+}],
+"loop": 1,
+"name": &"water",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3h1uy"]
+radius = 305.84265
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h412h"]
+radius = 91.63167
+height = 272.76337
+
+[node name="pond" type="StaticBody2D" unique_id=411527204]
+z_index = -1
+scale = Vector2(0.1907515, 0.1907515)
+collision_layer = 16
+script = ExtResource("1_xt72p")
+empty_bucket = ExtResource("2_f5e1k")
+water_bucket = ExtResource("3_l2kan")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=658316651]
+scale = Vector2(1.2264655, 1.2264655)
+sprite_frames = SubResource("SpriteFrames_h412h")
+animation = &"dry"
+
+[node name="InteractArea" type="Area2D" parent="." unique_id=2137630168]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea" unique_id=1504174965]
+scale = Vector2(1.4921458, 1.4921458)
+shape = SubResource("CircleShape2D_3h1uy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=756529416]
+rotation = -1.0898706
+scale = Vector2(2.560423, 2.560423)
+shape = SubResource("CapsuleShape2D_h412h")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=649940238]
+stream = ExtResource("5_f5e1k")
+
+[connection signal="body_entered" from="InteractArea" to="." method="_on_interact_area_body_entered"]
+[connection signal="body_exited" from="InteractArea" to="." method="_on_interact_area_body_exited"]

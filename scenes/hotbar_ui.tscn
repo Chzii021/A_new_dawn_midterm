@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://xl7ndpiyb2pf"]
+
+[ext_resource type="Script" uid="uid://86vbgb6bpdbf" path="res://script/hotbar_ui.gd" id="1_e6kfb"]
+[ext_resource type="PackedScene" uid="uid://c38p4sjpfuqht" path="res://inventory/inv_ui_slot.tscn" id="2_8vnii"]
+
+[node name="HotbarUI" type="CanvasLayer" unique_id=89102549]
+script = ExtResource("1_e6kfb")
+
+[node name="Hotbar" type="HBoxContainer" parent="." unique_id=1192417693]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -74.29413
+offset_top = -40.0
+offset_right = 211.70587
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.5187753, 0.5187753)
+theme_override_constants/separation = 10
+
+[node name="inv_UI_slot" parent="Hotbar" unique_id=1756978705 instance=ExtResource("2_8vnii")]
+layout_mode = 2
+
+[node name="inv_UI_slot2" parent="Hotbar" unique_id=1107867955 instance=ExtResource("2_8vnii")]
+layout_mode = 2
+
+[node name="inv_UI_slot3" parent="Hotbar" unique_id=1354226927 instance=ExtResource("2_8vnii")]
+layout_mode = 2
+
+[node name="inv_UI_slot4" parent="Hotbar" unique_id=1597964508 instance=ExtResource("2_8vnii")]
+layout_mode = 2

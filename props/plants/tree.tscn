@@ -1,0 +1,212 @@
+[gd_scene format=3 uid="uid://cculxmgmmriyw"]
+
+[ext_resource type="Script" uid="uid://c2j27pah88c8n" path="res://props/plants/tree.gd" id="1_wqchb"]
+[ext_resource type="AudioStream" uid="uid://d18kpw5n12qn6" path="res://sound/chop_1.wav" id="2_gd0k4"]
+[ext_resource type="Resource" uid="uid://pfs8ew2ooapc" path="res://inventory/item/wood.tres" id="2_j68yh"]
+[ext_resource type="Texture2D" uid="uid://b58fwy8olhfke" path="res://art/objects/tree.png" id="2_qynvc"]
+[ext_resource type="Texture2D" uid="uid://3ap45lqwaugh" path="res://art/characters/Shadow.png" id="3_g3yje"]
+[ext_resource type="AudioStream" uid="uid://l84ivqpc6pnn" path="res://sound/chop_2.wav" id="3_j68yh"]
+[ext_resource type="AudioStream" uid="uid://cx2eiymr0i2yg" path="res://sound/chop_3.wav" id="4_ktyvx"]
+[ext_resource type="PackedScene" uid="uid://eottg8tgbovj" path="res://Genneral/HitBox/hit_box.tscn" id="4_ypy30"]
+[ext_resource type="Resource" uid="uid://djv8iutb8mgny" path="res://inventory/item/bucket.tres" id="6_27q7e"]
+[ext_resource type="Resource" uid="uid://ukwqhhkh6dhk" path="res://inventory/item/bucket_water.tres" id="7_d6xl3"]
+[ext_resource type="Texture2D" uid="uid://ckmb2lbas8kby" path="res://art/objects/tree2.png" id="7_j68yh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g3yje"]
+atlas = ExtResource("2_qynvc")
+region = Rect2(213, 0, 578, 702)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ktyvx"]
+atlas = ExtResource("7_j68yh")
+region = Rect2(200, 0, 592, 724)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wbx1e"]
+atlas = ExtResource("2_qynvc")
+region = Rect2(1377, 0, 578, 702)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qynvc"]
+atlas = ExtResource("2_qynvc")
+region = Rect2(791, 0, 578, 702)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_27q7e"]
+atlas = ExtResource("7_j68yh")
+region = Rect2(1384, 0, 592, 724)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d6xl3"]
+atlas = ExtResource("7_j68yh")
+region = Rect2(792, 0, 592, 724)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h412h"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g3yje")
+}],
+"loop": 0,
+"name": &"dead tree",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ktyvx")
+}],
+"loop": 1,
+"name": &"seedling",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wbx1e")
+}],
+"loop": 0,
+"name": &"tree0",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qynvc")
+}],
+"loop": 1,
+"name": &"tree1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_27q7e")
+}],
+"loop": 1,
+"name": &"tree2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d6xl3")
+}],
+"loop": 1,
+"name": &"tree3",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h412h"]
+radius = 5.0
+height = 18.955173
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8bblj"]
+
+[sub_resource type="Animation" id="Animation_ogosg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_e1dth"]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_6h3f7"]
+resource_name = "tree_damaged"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334, 0.2, 0.26666668),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.19607843), Color(1, 1, 1, 1), Color(1, 1, 1, 0.5882353), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vg8y6"]
+_data = {
+&"RESET": SubResource("Animation_ogosg"),
+&"default": SubResource("Animation_e1dth"),
+&"tree_damaged": SubResource("Animation_6h3f7")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h412h"]
+radius = 17.0
+
+[node name="tree" type="Node2D" unique_id=649086540]
+script = ExtResource("1_wqchb")
+wood_item = ExtResource("2_j68yh")
+chop_sounds = Array[AudioStream]([ExtResource("2_gd0k4"), ExtResource("3_j68yh"), ExtResource("4_ktyvx")])
+empty_bucket = ExtResource("6_27q7e")
+water_bucket = ExtResource("7_d6xl3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=131801969]
+position = Vector2(0, -25)
+scale = Vector2(0.11561041, 0.11561041)
+sprite_frames = SubResource("SpriteFrames_h412h")
+animation = &"tree3"
+
+[node name="water" type="Sprite2D" parent="AnimatedSprite2D" unique_id=278312280]
+modulate = Color(0, 0.81960785, 0.93333334, 0.827451)
+show_behind_parent = true
+z_index = -1
+position = Vector2(0, 216.2435)
+scale = Vector2(8.886663, 6.1325655)
+texture = ExtResource("3_g3yje")
+
+[node name="ShadowSprite2D" type="Sprite2D" parent="AnimatedSprite2D" unique_id=1838715306]
+modulate = Color(0, 0, 0, 0.25882354)
+show_behind_parent = true
+position = Vector2(-2.8790617, 213.44003)
+scale = Vector2(8.886663, 6.1325655)
+texture = ExtResource("3_g3yje")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1773985618]
+y_sort_enabled = true
+position = Vector2(0, -1)
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1525832748]
+rotation = 1.5707964
+scale = Vector2(0.8440967, 0.8440967)
+shape = SubResource("CapsuleShape2D_h412h")
+
+[node name="HitBox" parent="." unique_id=1229950461 instance=ExtResource("4_ypy30")]
+position = Vector2(0, -9)
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=759464682]
+position = Vector2(0, 5.0648193)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_8bblj")
+
+[node name="HitSound" type="AudioStreamPlayer2D" parent="." unique_id=1004926536]
+
+[node name="EffectAnimationPlayer" type="AnimationPlayer" parent="." unique_id=1445366139]
+root_node = NodePath("../AnimatedSprite2D")
+libraries/ = SubResource("AnimationLibrary_vg8y6")
+
+[node name="InteractArea" type="Area2D" parent="." unique_id=873997620]
+position = Vector2(0, -4)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea" unique_id=1871779708]
+shape = SubResource("CircleShape2D_h412h")
+
+[connection signal="body_entered" from="InteractArea" to="." method="_on_interact_area_body_entered"]
+[connection signal="body_exited" from="InteractArea" to="." method="_on_interact_area_body_exited"]

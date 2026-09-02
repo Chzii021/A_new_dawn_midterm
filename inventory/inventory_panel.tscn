@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://rnss2qh4lusc"]
+
+[ext_resource type="Script" uid="uid://c7vaqbqojty8n" path="res://inventory/inventory_panel.gd" id="1_g60tv"]
+[ext_resource type="PackedScene" uid="uid://c38p4sjpfuqht" path="res://inventory/inv_ui_slot.tscn" id="2_sqj43"]
+
+[node name="InventoryPanel" type="PanelContainer" unique_id=2028454381]
+custom_minimum_size = Vector2(320, 280)
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_g60tv")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=2056767383]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1680838674]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer" unique_id=436639645]
+layout_mode = 2
+text = "INVENTORY"
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer" unique_id=1864795277]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 11
+theme_override_constants/v_separation = 11
+columns = 4
+
+[node name="inv_UI_slot" parent="MarginContainer/VBoxContainer/GridContainer" unique_id=413490524 instance=ExtResource("2_sqj43")]
+layout_mode = 2
+
+[node name="inv_UI_slot2" parent="MarginContainer/VBoxContainer/GridContainer" unique_id=1690748679 instance=ExtResource("2_sqj43")]
+layout_mode = 2
+
+[node name="inv_UI_slot3" parent="MarginContainer/VBoxContainer/GridContainer" unique_id=747443133 instance=ExtResource("2_sqj43")]
+layout_mode = 2
+
+[node name="inv_UI_slot4" parent="MarginContainer/VBoxContainer/GridContainer" unique_id=672196503 instance=ExtResource("2_sqj43")]
+layout_mode = 2
+
+[node name="inv_UI_slot5" parent="MarginContainer/VBoxContainer/GridContainer" unique_id=1041881168 instance=ExtResource("2_sqj43")]
+layout_mode = 2
+
+[node name="inv_UI_slot6" parent="MarginContainer/VBoxContainer/GridContainer" unique_id=2085208283 instance=ExtResource("2_sqj43")]
+layout_mode = 2
+
+[node name="inv_UI_slot7" parent="MarginContainer/VBoxContainer/GridContainer" unique_id=1350965388 instance=ExtResource("2_sqj43")]
+layout_mode = 2
+
+[node name="inv_UI_slot8" parent="MarginContainer/VBoxContainer/GridContainer" unique_id=179024368 instance=ExtResource("2_sqj43")]
+layout_mode = 2
+
+[node name="inv_UI_slot9" parent="MarginContainer/VBoxContainer/GridContainer" unique_id=1040453595 instance=ExtResource("2_sqj43")]
+layout_mode = 2
+
+[node name="inv_UI_slot10" parent="MarginContainer/VBoxContainer/GridContainer" unique_id=290543488 instance=ExtResource("2_sqj43")]
+layout_mode = 2
+
+[node name="inv_UI_slot11" parent="MarginContainer/VBoxContainer/GridContainer" unique_id=1195500427 instance=ExtResource("2_sqj43")]
+layout_mode = 2
+
+[node name="inv_UI_slot12" parent="MarginContainer/VBoxContainer/GridContainer" unique_id=812893442 instance=ExtResource("2_sqj43")]
+layout_mode = 2

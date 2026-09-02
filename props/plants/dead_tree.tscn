@@ -1,0 +1,174 @@
+[gd_scene format=3 uid="uid://4kuj28b0be2e"]
+
+[ext_resource type="Script" uid="uid://cwqffdi11bk3b" path="res://props/plants/dead_tree.gd" id="1_yulwf"]
+[ext_resource type="PackedScene" uid="uid://cculxmgmmriyw" path="res://props/plants/tree.tscn" id="2_m4rnq"]
+[ext_resource type="Resource" uid="uid://pfs8ew2ooapc" path="res://inventory/item/wood.tres" id="3_gu3mv"]
+[ext_resource type="Resource" uid="uid://djv8iutb8mgny" path="res://inventory/item/bucket.tres" id="3_scl77"]
+[ext_resource type="Texture2D" uid="uid://bx44miqdtifwe" path="res://art/objects/tree dead.png" id="4_scl77"]
+[ext_resource type="Resource" uid="uid://ukwqhhkh6dhk" path="res://inventory/item/bucket_water.tres" id="4_tc08a"]
+[ext_resource type="Texture2D" uid="uid://3ap45lqwaugh" path="res://art/characters/Shadow.png" id="5_tc08a"]
+[ext_resource type="PackedScene" uid="uid://eottg8tgbovj" path="res://Genneral/HitBox/hit_box.tscn" id="6_6d1k4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n1scm"]
+atlas = ExtResource("4_scl77")
+region = Rect2(1384, 0, 592, 724)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_llhey"]
+atlas = ExtResource("4_scl77")
+region = Rect2(792, 0, 592, 724)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qm0hw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n1scm")
+}],
+"loop": 1,
+"name": &"dead_tree0",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_llhey")
+}],
+"loop": 1,
+"name": &"dead_tree1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_llhey")
+}],
+"loop": 1,
+"name": &"dead_tree2",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p4wgh"]
+radius = 17.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i2seb"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7d25a"]
+radius = 5.0
+height = 18.955173
+
+[sub_resource type="Animation" id="Animation_ogosg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_e1dth"]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_6h3f7"]
+resource_name = "tree_damaged"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334, 0.2, 0.26666668),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.19607843), Color(1, 1, 1, 1), Color(1, 1, 1, 0.5882353), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yulwf"]
+_data = {
+&"RESET": SubResource("Animation_ogosg"),
+&"default": SubResource("Animation_e1dth"),
+&"tree_damaged": SubResource("Animation_6h3f7")
+}
+
+[node name="dead_tree" type="Node2D" unique_id=289021935]
+script = ExtResource("1_yulwf")
+tree_scene = ExtResource("2_m4rnq")
+empty_bucket = ExtResource("3_scl77")
+water_bucket = ExtResource("4_tc08a")
+wood_item = ExtResource("3_gu3mv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1295777059]
+position = Vector2(2, -32)
+scale = Vector2(0.11561041, 0.11561041)
+sprite_frames = SubResource("SpriteFrames_qm0hw")
+animation = &"dead_tree2"
+
+[node name="ShadowSprite2D" type="Sprite2D" parent="AnimatedSprite2D" unique_id=651184911]
+modulate = Color(0, 0, 0, 0.25882354)
+show_behind_parent = true
+z_index = -1
+position = Vector2(-17.29948, 268.14197)
+scale = Vector2(8.886663, 6.1325655)
+texture = ExtResource("5_tc08a")
+
+[node name="water" type="Sprite2D" parent="AnimatedSprite2D" unique_id=1504356410]
+visible = false
+modulate = Color(0, 0.81960785, 0.93333334, 0.827451)
+show_behind_parent = true
+z_index = -1
+position = Vector2(-17.29948, 268.14194)
+scale = Vector2(8.886663, 6.1325655)
+texture = ExtResource("5_tc08a")
+
+[node name="InteractArea" type="Area2D" parent="." unique_id=1926010650]
+position = Vector2(0, -5)
+scale = Vector2(1.2018251, 1.2018251)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea" unique_id=168470441]
+shape = SubResource("CircleShape2D_p4wgh")
+
+[node name="HitBox" parent="." unique_id=1229950461 instance=ExtResource("6_6d1k4")]
+position = Vector2(0, -2.0000005)
+scale = Vector2(0.7157607, 0.7157607)
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=2087394773]
+position = Vector2(-2.5758585e-14, 0)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_i2seb")
+
+[node name="HitSound" type="AudioStreamPlayer2D" parent="." unique_id=1228806578]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1155015267]
+y_sort_enabled = true
+position = Vector2(0, -2)
+scale = Vector2(0.9999998, 0.9999998)
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=348719506]
+rotation = 1.5707964
+scale = Vector2(0.8440967, 0.8440967)
+shape = SubResource("CapsuleShape2D_7d25a")
+
+[node name="EffectAnimationPlayer" type="AnimationPlayer" parent="." unique_id=403906797]
+root_node = NodePath("../AnimatedSprite2D")
+libraries/ = SubResource("AnimationLibrary_yulwf")
+
+[connection signal="body_entered" from="InteractArea" to="." method="_on_interact_area_body_entered"]
+[connection signal="body_exited" from="InteractArea" to="." method="_on_interact_area_body_exited"]

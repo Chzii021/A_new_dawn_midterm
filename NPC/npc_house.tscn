@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://ddcaxvha2crwb"]
+
+[ext_resource type="Texture2D" uid="uid://t0mi313ve21y" path="res://art/objects/NPC_House.png" id="1_bk0yo"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_22c7v"]
+atlas = ExtResource("1_bk0yo")
+region = Rect2(0, 82, 557, 737)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3otox"]
+atlas = ExtResource("1_bk0yo")
+region = Rect2(557, 82, 557, 737)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tdunr"]
+atlas = ExtResource("1_bk0yo")
+region = Rect2(1114, 82, 557, 737)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h412h"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_22c7v")
+}],
+"loop": 0,
+"name": &"lv1",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3otox")
+}],
+"loop": 0,
+"name": &"lv2",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tdunr")
+}],
+"loop": 0,
+"name": &"lv3",
+"speed": 0.0
+}]
+
+[node name="Npc_house" type="StaticBody2D" unique_id=1511785610]
+y_sort_enabled = true
+position = Vector2(-0.006416321, -0.044906616)
+collision_layer = 16
+collision_mask = 0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1460976128]
+position = Vector2(-13.092089, -10.342154)
+scale = Vector2(0.09402619, 0.09402619)
+sprite_frames = SubResource("SpriteFrames_h412h")
+animation = &"lv1"
+offset = Vector2(163.47058, -56.15428)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=335780174]
+y_sort_enabled = true
+position = Vector2(-0.9002571, -10.996727)
+polygon = PackedVector2Array(-20.461557, 7.152214, -18.763313, 9.884171, 4.4149323, 19.74171, 23.47131, 9.367313, 22.363758, 7.078377, 4.642948, -3.7017956, -4.9558296, -4.2186527)

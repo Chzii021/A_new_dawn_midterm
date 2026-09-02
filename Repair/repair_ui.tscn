@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://ccr3imgi0nqge"]
+
+[ext_resource type="Script" uid="uid://bs53thdn8fy7o" path="res://Repair/repair_ui.gd" id="1_ggwa0"]
+
+[node name="RepairUI" type="Control" unique_id=630304382]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+scale = Vector2(0.20164718, 0.13745037)
+script = ExtResource("1_ggwa0")
+
+[node name="Panel" type="PanelContainer" parent="." unique_id=1593814460]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 54.0
+scale = Vector2(0.3594544, 0.46390483)
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=149805270]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=2107835069]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Panel/MarginContainer/VBoxContainer" unique_id=485345032]
+visible = false
+layout_mode = 2
+
+[node name="RequirementList" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=986142603]
+modulate = Color(0.43211025, 0.43211025, 0.4321102, 1)
+layout_mode = 2
+
+[node name="HintLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer" unique_id=1593352017]
+modulate = Color(0.63449997, 0.81, 0, 1)
+layout_mode = 2

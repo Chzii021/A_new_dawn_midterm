@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>G Pro</title>
+
+	<style>
+		html, body {
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			font-family: Arial, sans-serif;
+			background: #000;
+		}
+
+		body {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background-image: url("loading_bg.png");
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+		}
+
+		#loading-screen {
+			position: absolute;
+			inset: 0;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			background: rgba(0, 0, 0, 0.35);
+			backdrop-filter: blur(2px);
+		}
+
+		#logo {
+			width: min(520px, 70vw);
+			max-width: 90%;
+			height: auto;
+			margin-bottom: 24px;
+			image-rendering: auto;
+		}
+
+		#loading-text {
+			color: white;
+			font-size: 22px;
+			font-weight: bold;
+			margin-bottom: 14px;
+			text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+		}
+
+		#progress-container {
+			width: min(500px, 70vw);
+			height: 22px;
+			background: rgba(255,255,255,0.22);
+			border: 2px solid rgba(255,255,255,0.7);
+			border-radius: 999px;
+			overflow: hidden;
+			box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+		}
+
+		#progress-bar {
+			width: 0%;
+			height: 100%;
+			background: linear-gradient(90deg, #f7d25a, #f29c1f);
+			transition: width 0.2s ease;
+		}
+
+		#canvas {
+			width: 100%;
+			height: 100%;
+			display: block;
+			border: 0;
+			outline: none;
+		}
+	</style>
+</head>
+<body>
+	<div id="loading-screen">
+		<img id="logo" src="logo.png" alt="Game Logo">
+		<div id="loading-text">Loading...</div>
+		<div id="progress-container">
+			<div id="progress-bar"></div>
+		</div>
+	</div>
+
+	<canvas id="canvas">Your browser does not support the canvas tag.</canvas>
+
+	<link id="-gd-engine-icon" rel="icon" type="image/png" href="index.icon.png" />
+<link rel="apple-touch-icon" href="index.apple-touch-icon.png"/>
+
+
+	<script src="index.js"></script>
+	<script>
+		const progressBar = document.getElementById("progress-bar");
+		const loadingScreen = document.getElementById("loading-screen");
+
+		const engine = new Engine({"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":27526072,"index.wasm":39509339},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4});
+
+		engine.startGame({
+			onProgress: function(current, total) {
+				if (total > 0) {
+					const percent = (current / total) * 100;
+					progressBar.style.width = percent + "%";
+				}
+			}
+		}).then(() => {
+			loadingScreen.style.display = "none";
+		}).catch((error) => {
+			console.error(error);
+		});
+	</script>
+</body>
+</html>
+

@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://cs30tmdo2q45j"]
+
+[ext_resource type="Script" uid="uid://b7r0ie46krely" path="res://props/plants/seedling.gd" id="1_ylmjs"]
+[ext_resource type="Resource" uid="uid://djv8iutb8mgny" path="res://inventory/item/bucket.tres" id="2_f7txs"]
+[ext_resource type="PackedScene" uid="uid://cculxmgmmriyw" path="res://props/plants/tree.tscn" id="2_w7qve"]
+[ext_resource type="Texture2D" uid="uid://ckmb2lbas8kby" path="res://art/objects/tree2.png" id="3_f7txs"]
+[ext_resource type="Resource" uid="uid://ukwqhhkh6dhk" path="res://inventory/item/bucket_water.tres" id="3_wnd0r"]
+[ext_resource type="Texture2D" uid="uid://3ap45lqwaugh" path="res://art/characters/Shadow.png" id="4_wnd0r"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ktyvx"]
+atlas = ExtResource("3_f7txs")
+region = Rect2(200, 0, 592, 724)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jmrld"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ktyvx")
+}],
+"loop": 1,
+"name": &"seedling",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1pmvr"]
+radius = 17.0
+
+[node name="seedling" type="Node2D" unique_id=690417625]
+script = ExtResource("1_ylmjs")
+empty_bucket = ExtResource("2_f7txs")
+water_bucket = ExtResource("3_wnd0r")
+tree_scene = ExtResource("2_w7qve")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1829409800]
+position = Vector2(0, -25)
+scale = Vector2(0.11561041, 0.11561041)
+sprite_frames = SubResource("SpriteFrames_jmrld")
+animation = &"seedling"
+
+[node name="water" type="Sprite2D" parent="AnimatedSprite2D" unique_id=1644168361]
+modulate = Color(0, 0.81960785, 0.93333334, 0.827451)
+show_behind_parent = true
+z_index = -1
+position = Vector2(0, 216.2435)
+scale = Vector2(8.886663, 6.1325655)
+texture = ExtResource("4_wnd0r")
+
+[node name="InteractArea" type="Area2D" parent="." unique_id=534778105]
+position = Vector2(0, -4)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea" unique_id=1331461597]
+shape = SubResource("CircleShape2D_1pmvr")
+
+[connection signal="body_entered" from="InteractArea" to="." method="_on_interact_area_body_entered"]
+[connection signal="body_exited" from="InteractArea" to="." method="_on_interact_area_body_exited"]

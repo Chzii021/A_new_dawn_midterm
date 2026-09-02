@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://ca6l3ljpqxuce"]
+
+[ext_resource type="Script" uid="uid://xh3tgbsc2dr7" path="res://Craft/craft_recipe_row.gd" id="1_7u2oa"]
+
+[node name="CraftRecipeRow" type="PanelContainer" unique_id=619825522]
+custom_minimum_size = Vector2(400, 100)
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(4.0777855, 4.0777855)
+script = ExtResource("1_7u2oa")
+
+[node name="Margin" type="MarginContainer" parent="." unique_id=169506258]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBox" type="HBoxContainer" parent="Margin" unique_id=1420084777]
+layout_mode = 2
+
+[node name="ItemIcon" type="TextureRect" parent="Margin/HBox" unique_id=18727791]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Info" type="VBoxContainer" parent="Margin/HBox" unique_id=1165608147]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ItemName" type="Label" parent="Margin/HBox/Info" unique_id=646145382]
+layout_mode = 2
+
+[node name="Requirements" type="VBoxContainer" parent="Margin/HBox/Info" unique_id=500869398]
+modulate = Color(0.5705783, 0.57057834, 0.5705782, 1)
+layout_mode = 2
+
+[node name="CraftButton" type="Button" parent="Margin/HBox" unique_id=1798437779]
+layout_mode = 2
+text = "CRAFT"
