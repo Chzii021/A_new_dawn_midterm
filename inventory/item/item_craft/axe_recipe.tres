@@ -1,25 +1,18 @@
 [gd_resource type="Resource" script_class="CraftRecipe" format=3 uid="uid://b10vb70ghynsd"]
 
 [ext_resource type="Script" uid="uid://yndvrriqd716" path="res://Craft/CraftRequirement.gd" id="1_dr1cj"]
-[ext_resource type="Resource" uid="uid://bti50ms7l5hhx" path="res://inventory/item/rock.tres" id="2_3rcdd"]
-[ext_resource type="Resource" uid="uid://c3q01nq0wl6yl" path="res://inventory/item/stick.tres" id="3_30gc5"]
-[ext_resource type="Resource" uid="uid://khfnpwueusux" path="res://inventory/item/axe.tres" id="4_bh8jt"]
+[ext_resource type="Resource" uid="uid://pfs8ew2ooapc" path="res://inventory/item/wood.tres" id="2_eksg4"]
+[ext_resource type="Resource" uid="uid://icl5wu0koi40" path="res://inventory/item/wood_plank.tres" id="3_mrwob"]
 [ext_resource type="Script" uid="uid://fn00m4vtibsf" path="res://Craft/CraftRecipe.gd" id="5_ap2d2"]
 
 [sub_resource type="Resource" id="Resource_tbhy6"]
 script = ExtResource("1_dr1cj")
-item = ExtResource("2_3rcdd")
-amount = 2
-metadata/_custom_type_script = "uid://yndvrriqd716"
-
-[sub_resource type="Resource" id="Resource_pq03i"]
-script = ExtResource("1_dr1cj")
-item = ExtResource("3_30gc5")
+item = ExtResource("2_eksg4")
 amount = 2
 metadata/_custom_type_script = "uid://yndvrriqd716"
 
 [resource]
 script = ExtResource("5_ap2d2")
-result_item = ExtResource("4_bh8jt")
-requirements = Array[ExtResource("1_dr1cj")]([SubResource("Resource_tbhy6"), SubResource("Resource_pq03i")])
+result_item = ExtResource("3_mrwob")
+requirements = Array[ExtResource("1_dr1cj")]([SubResource("Resource_tbhy6")])
 metadata/_custom_type_script = "uid://fn00m4vtibsf"

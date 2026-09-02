@@ -295,7 +295,8 @@ func complete_repair() -> void:
 
 	if repair_ui != null:
 		repair_ui.hide_panel()
-
+	
+	QuestManager.objective_complete("quest_04")
 
 	print("ซ่อมบ่อน้ำสำเร็จ!")
 

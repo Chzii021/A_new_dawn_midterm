@@ -26,6 +26,7 @@
 [ext_resource type="AudioStream" uid="uid://xfcly7uhsgvm" path="res://sound/nature_forest.wav" id="24_hxukt"]
 [ext_resource type="PackedScene" uid="uid://bmncwf8sh0m1t" path="res://NPC/npc.tscn" id="25_6chju"]
 [ext_resource type="PackedScene" uid="uid://ddcaxvha2crwb" path="res://NPC/npc_house.tscn" id="26_jhek2"]
+[ext_resource type="PackedScene" uid="uid://c388dnewfgqkn" path="res://props/pond.tscn" id="27_lvn8r"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cu4rp"]
 texture = ExtResource("2_mv8fa")
@@ -711,6 +712,7 @@ position = Vector2(90, 46)
 y_sort_enabled = true
 position = Vector2(270, 202)
 object_id = "village_crafting_table"
+quest_id = "repair_craft_table"
 
 [node name="well" parent="." unique_id=356520196 instance=ExtResource("16_ksooq")]
 position = Vector2(498, 127)
@@ -770,56 +772,67 @@ y_sort_enabled = true
 [node name="dead_tree" parent="Plants/dead_tree" unique_id=289021935 instance=ExtResource("20_jhek2")]
 position = Vector2(455, 88)
 plant_id = "dead_tree_v_01"
+count_for_village_quest = true
 
 [node name="dead_tree2" parent="Plants/dead_tree" unique_id=1379993441 instance=ExtResource("20_jhek2")]
 position = Vector2(8, 240)
 scale = Vector2(1.0837121, 1.0837121)
 plant_id = "dead_tree_v_02"
+count_for_village_quest = true
 
 [node name="dead_tree3" parent="Plants/dead_tree" unique_id=1127993218 instance=ExtResource("20_jhek2")]
 position = Vector2(98, 30)
 scale = Vector2(0.8392455, 0.8392455)
 plant_id = "dead_tree_v_03"
+count_for_village_quest = true
 
 [node name="dead_tree4" parent="Plants/dead_tree" unique_id=881384236 instance=ExtResource("20_jhek2")]
 position = Vector2(473, 335)
 scale = Vector2(1.170564, 1.170564)
 plant_id = "dead_tree_v_04"
+count_for_village_quest = true
 
 [node name="dead_tree5" parent="Plants/dead_tree" unique_id=1298687900 instance=ExtResource("20_jhek2")]
 position = Vector2(396, 73)
 scale = Vector2(1.1831001, 1.1831001)
 plant_id = "dead_tree_v_05"
+count_for_village_quest = true
 
 [node name="dead_tree6" parent="Plants/dead_tree" unique_id=1460977370 instance=ExtResource("20_jhek2")]
 position = Vector2(264.99997, 53)
 scale = Vector2(0.90332806, 0.90332806)
 plant_id = "dead_tree_v_06"
+count_for_village_quest = true
 
 [node name="dead_tree7" parent="Plants/dead_tree" unique_id=1213200804 instance=ExtResource("20_jhek2")]
 position = Vector2(535, 243.99998)
 scale = Vector2(0.8392455, 0.8392455)
 plant_id = "dead_tree_v_07"
+count_for_village_quest = true
 
 [node name="dead_tree8" parent="Plants/dead_tree" unique_id=2119233741 instance=ExtResource("20_jhek2")]
 position = Vector2(158.00003, 393)
 scale = Vector2(1.086402, 1.086402)
 plant_id = "dead_tree_v_08"
+count_for_village_quest = true
 
 [node name="dead_tree9" parent="Plants/dead_tree" unique_id=147737854 instance=ExtResource("20_jhek2")]
 position = Vector2(546, 188)
 scale = Vector2(0.90332806, 0.90332806)
 plant_id = "dead_tree_v_09"
+count_for_village_quest = true
 
 [node name="dead_tree10" parent="Plants/dead_tree" unique_id=2086203842 instance=ExtResource("20_jhek2")]
 position = Vector2(111, 263)
 scale = Vector2(0.8392455, 0.8392455)
 plant_id = "dead_tree_v_010"
+count_for_village_quest = true
 
 [node name="dead_tree11" parent="Plants/dead_tree" unique_id=413323939 instance=ExtResource("20_jhek2")]
 position = Vector2(451.99997, 255)
 scale = Vector2(1.086402, 1.086402)
 plant_id = "dead_tree_v_011"
+count_for_village_quest = true
 
 [node name="seedling" type="Node2D" parent="Plants" unique_id=452294016]
 y_sort_enabled = true
@@ -828,11 +841,37 @@ y_sort_enabled = true
 position = Vector2(71, 122)
 scale = Vector2(0.748062, 0.748062)
 plant_id = "seedling_v_01"
+count_for_village_quest = true
 
 [node name="seedling2" parent="Plants/seedling" unique_id=354589003 instance=ExtResource("21_lvn8r")]
 position = Vector2(330, 52.000015)
 scale = Vector2(0.86617076, 0.86617076)
 plant_id = "seedling_v_01"
+count_for_village_quest = true
+
+[node name="seedling3" parent="Plants/seedling" unique_id=1783744520 instance=ExtResource("21_lvn8r")]
+position = Vector2(46, 272)
+scale = Vector2(0.81079185, 0.81079185)
+plant_id = "seedling_v_03"
+count_for_village_quest = true
+
+[node name="seedling4" parent="Plants/seedling" unique_id=313083767 instance=ExtResource("21_lvn8r")]
+position = Vector2(479, 153)
+scale = Vector2(0.73480684, 0.73480684)
+plant_id = "seedling_v_04"
+count_for_village_quest = true
+
+[node name="seedling5" parent="Plants/seedling" unique_id=1566384225 instance=ExtResource("21_lvn8r")]
+position = Vector2(146, 47.000008)
+scale = Vector2(0.74503404, 0.74503404)
+plant_id = "seedling_v_05"
+count_for_village_quest = true
+
+[node name="seedling6" parent="Plants/seedling" unique_id=246920153 instance=ExtResource("21_lvn8r")]
+position = Vector2(376, 364)
+scale = Vector2(0.79698867, 0.79698867)
+plant_id = "seedling_v_06"
+count_for_village_quest = true
 
 [node name="stick" type="Node2D" parent="Plants" unique_id=626581328]
 
@@ -887,6 +926,16 @@ position = Vector2(188, 79)
 [node name="Npc_house" parent="." unique_id=1511785610 instance=ExtResource("26_jhek2")]
 position = Vector2(193.00002, 58.000008)
 scale = Vector2(1.3800555, 1.3800555)
+
+[node name="Object" type="Node2D" parent="." unique_id=531561075]
+position = Vector2(229, 181)
+rotation = 0.09657252
+scale = Vector2(0.88749284, 0.88749284)
+
+[node name="well" parent="Object" unique_id=411527204 instance=ExtResource("27_lvn8r")]
+position = Vector2(-220.43814, -31.851395)
+scale = Vector2(0.08210202, 0.08210202)
+pond_id = "world_pond_v_01"
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

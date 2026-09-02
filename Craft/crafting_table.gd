@@ -3,7 +3,8 @@ extends Node2D
 signal repair_completed
 
 @export var object_id: String = "broken_object_01"
-
+@export_category("Quest")
+@export var quest_id: String = ""
 
 # =====================================================
 # REPAIR
@@ -80,31 +81,54 @@ func _process(_delta: float) -> void:
 # =====================================================
 # PLAYER เข้าใกล้
 # =====================================================
-
 func _on_interactable_area_body_entered(body: Node2D) -> void:
+
 	if body is player_2:
 
 		player = body
 		player_in_area = true
 
-		if not is_repaired:
+
+		# =====================================
+		# โต๊ะซ่อมแล้ว → อนุญาตให้ Craft
+		# =====================================
+
+		if is_repaired:
+
+			global.near_crafting_table = true
+
+			print("อยู่ใกล้ Crafting Table → Craft ได้")
+
+
+		# =====================================
+		# โต๊ะยังพัง
+		# =====================================
+
+		else:
+
+			global.near_crafting_table = false
+
 			show_repair_ui()
-
-
 # =====================================================
 # PLAYER ออกจากพื้นที่
 # =====================================================
-
 func _on_interactable_area_body_exited(body: Node2D) -> void:
+
 	if body == player:
 
 		player = null
 		player_in_area = false
 
+
+		# ออกจากโต๊ะ → Craft ไม่ได้
+		global.near_crafting_table = false
+
+
 		if repair_ui != null:
 			repair_ui.hide_panel()
 
 
+		print("ออกจาก Crafting Table → Craft ไม่ได้")
 # =====================================================
 # ใส่วัตถุดิบจาก Inventory
 # =====================================================
@@ -247,31 +271,40 @@ func check_repair_complete() -> bool:
 # =====================================================
 # ซ่อมเสร็จ
 # =====================================================
-
 func complete_repair() -> void:
 
 	if is_repaired:
 		return
 
-
 	is_repaired = true
 
-
 	save_repair_state()
-
 	update_visual()
-
 
 	if repair_ui != null:
 		repair_ui.hide_panel()
 
-
 	repair_completed.emit()
-
+	if player_in_area:
+		global.near_crafting_table = true
 
 	print("REPAIR COMPLETE!")
+	print("Quest ID = ", quest_id)
 
 
+	# =========================================
+	# แจ้ง QuestManager ว่าซ่อมสำเร็จแล้ว
+	# =========================================
+
+	if quest_id != "":
+
+		QuestManager.objective_complete(
+			quest_id
+		)
+
+	else:
+
+		print("❌ Object นี้ยังไม่ได้ตั้ง Quest ID")
 # =====================================================
 # เปลี่ยนภาพ
 # =====================================================

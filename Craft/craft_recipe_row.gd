@@ -78,7 +78,10 @@ func refresh() -> void:
 
 
 	# ถ้าของไม่ครบ ปุ่ม Craft กดไม่ได้
-	craft_button.disabled = not can_craft()
+	craft_button.disabled = (
+	not can_craft()
+	or not global.near_crafting_table
+)
 
 func can_craft() -> bool:
 	if recipe == null:
@@ -116,6 +119,20 @@ func can_craft() -> bool:
 	return true
 
 func craft() -> void:
+
+	# ========================================
+	# ต้องอยู่ใกล้โต๊ะ Craft ก่อน
+	# ========================================
+
+	if not global.near_crafting_table:
+		print("❌ ต้องยืนใกล้โต๊ะคราฟก่อน!")
+		return
+
+
+	# ========================================
+	# เช็กวัตถุดิบ
+	# ========================================
+
 	if not can_craft():
 		print("วัตถุดิบไม่พอ")
 		return
@@ -125,8 +142,12 @@ func craft() -> void:
 	print("CRAFT: ", recipe.result_item.name)
 
 
+	# ========================================
 	# หักวัตถุดิบ
+	# ========================================
+
 	for requirement in recipe.requirements:
+
 		if requirement == null:
 			continue
 
@@ -148,7 +169,10 @@ func craft() -> void:
 		)
 
 
-	# เพิ่มของที่คราฟเข้า Inventory
+	# ========================================
+	# เพิ่มของที่ Craft
+	# ========================================
+
 	inv.insert_amount(
 		recipe.result_item,
 		recipe.result_amount
@@ -163,5 +187,6 @@ func craft() -> void:
 	)
 
 	print("====================")
+
 
 	refresh()
