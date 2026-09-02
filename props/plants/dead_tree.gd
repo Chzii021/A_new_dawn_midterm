@@ -14,6 +14,8 @@ extends Node2D
 
 @export_category("Sound")
 @export var hit_sounds: Array[AudioStream]
+@export_category("Quest")
+@export var count_for_village_quest: bool = false
 
 # dead / watered / grown / removed
 var tree_state: String = "dead"
@@ -95,6 +97,16 @@ func TakeDamage(hurt_box: HurtBox) -> void:
 	save_state()
 
 	print("Get Wood x1")
+	# =========================================
+	# QUEST : CUT DEAD TREES
+	# =========================================
+	if count_for_village_quest:
+
+		QuestManager.add_unique_progress(
+			"cut_dead_trees",
+			plant_id
+		)
+		
 	queue_free()
 
 # =====================================================
