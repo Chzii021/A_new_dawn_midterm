@@ -185,8 +185,13 @@ func craft() -> void:
 		" x",
 		recipe.result_amount
 	)
+	if recipe.quest_id_on_craft != "":
+		QuestManager.objective_complete(
+			recipe.quest_id_on_craft
+		)
 
 	print("====================")
+	
 
 
 	refresh()

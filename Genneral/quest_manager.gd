@@ -90,6 +90,35 @@ var quests: Array[Dictionary] = [
 			"Thank you!",
 
 		"target": 1
+	},
+	{
+		"id": "upgrade_grandma_house_lv2",
+
+		"start_text":
+			"My house is still damaged. Could you help repair it?",
+
+		"active_text":
+			"Please upgrade my house to level 2.",
+
+		"complete_text":
+			"Wonderful! My house looks much better now. Thank you!",
+
+		"target": 1
+	},
+
+	{
+		"id": "craft_sword",
+
+		"start_text":
+			"You should have something to protect village.",
+
+		"active_text":
+			"Craft a sword at the crafting table.",
+
+		"complete_text":
+			"Excellent! Now you can fight against the CanKaNuayKongTuayTan!",
+
+		"target": 1
 	}
 ]
 

@@ -848,30 +848,35 @@ position = Vector2(330, 52.000015)
 scale = Vector2(0.86617076, 0.86617076)
 plant_id = "seedling_v_01"
 count_for_village_quest = true
+seedling_id = "village_seedling_02"
 
 [node name="seedling3" parent="Plants/seedling" unique_id=1783744520 instance=ExtResource("21_lvn8r")]
 position = Vector2(46, 272)
 scale = Vector2(0.81079185, 0.81079185)
 plant_id = "seedling_v_03"
 count_for_village_quest = true
+seedling_id = "village_seedling_03"
 
 [node name="seedling4" parent="Plants/seedling" unique_id=313083767 instance=ExtResource("21_lvn8r")]
 position = Vector2(479, 153)
 scale = Vector2(0.73480684, 0.73480684)
 plant_id = "seedling_v_04"
 count_for_village_quest = true
+seedling_id = "village_seedling_04"
 
 [node name="seedling5" parent="Plants/seedling" unique_id=1566384225 instance=ExtResource("21_lvn8r")]
 position = Vector2(146, 47.000008)
 scale = Vector2(0.74503404, 0.74503404)
 plant_id = "seedling_v_05"
 count_for_village_quest = true
+seedling_id = "village_seedling_05"
 
 [node name="seedling6" parent="Plants/seedling" unique_id=246920153 instance=ExtResource("21_lvn8r")]
 position = Vector2(376, 364)
 scale = Vector2(0.79698867, 0.79698867)
 plant_id = "seedling_v_06"
 count_for_village_quest = true
+seedling_id = "village_seedling_06"
 
 [node name="stick" type="Node2D" parent="Plants" unique_id=626581328]
 

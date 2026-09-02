@@ -35,4 +35,5 @@ metadata/_custom_type_script = "uid://yndvrriqd716"
 script = ExtResource("5_qpu4i")
 result_item = ExtResource("6_cogks")
 requirements = Array[ExtResource("1_gxc41")]([SubResource("Resource_tbhy6"), SubResource("Resource_pq03i"), SubResource("Resource_40wg4"), SubResource("Resource_0hdq6")])
+quest_id_on_craft = "craft_sword"
 metadata/_custom_type_script = "uid://fn00m4vtibsf"

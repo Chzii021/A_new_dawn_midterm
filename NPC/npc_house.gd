@@ -9,6 +9,8 @@ extends Node2D
 
 @export var house_id: String = "village_house_01"
 
+@export_category("Quest")
+@export var level_2_quest_id: String = ""
 
 # =====================================================
 # LEVEL 2 REQUIREMENTS
@@ -413,7 +415,6 @@ func check_level_complete() -> bool:
 # =====================================================
 # UPGRADE HOUSE
 # =====================================================
-
 func upgrade_house() -> void:
 
 	if house_level >= 3:
@@ -430,8 +431,20 @@ func upgrade_house() -> void:
 
 
 	save_house_state()
-
 	update_visual()
+
+
+	# =========================================
+	# QUEST : HOUSE LV2
+	# =========================================
+
+	if house_level == 2:
+
+		if level_2_quest_id != "":
+
+			QuestManager.objective_complete(
+				level_2_quest_id
+			)
 
 
 	# =========================================
@@ -441,27 +454,15 @@ func upgrade_house() -> void:
 	if house_level >= 3:
 
 		if repair_ui != null:
-
 			repair_ui.hide_panel()
 
-
-		print(
-			"HOUSE COMPLETE!"
-		)
+		print("HOUSE COMPLETE!")
 
 		return
 
 
-	# =========================================
-	# ถ้ายังเป็น LV2
-	# แสดงของสำหรับ LV3 ต่อ
-	# =========================================
-
 	if player_in_area:
-
 		update_build_ui()
-
-
 # =====================================================
 # UPDATE VISUAL
 # =====================================================

@@ -104,6 +104,7 @@ position = Vector2(-0.006416321, -0.044906616)
 collision_layer = 16
 collision_mask = 0
 script = ExtResource("1_mlqu8")
+level_2_quest_id = "upgrade_grandma_house_lv2"
 level_2_requirements = Array[ExtResource("2_8yrk8")]([SubResource("Resource_h412h"), SubResource("Resource_3h1uy"), SubResource("Resource_uuv3w"), SubResource("Resource_e7v0d")])
 level_3_requirements = Array[ExtResource("2_8yrk8")]([SubResource("Resource_cqkej"), SubResource("Resource_tovqu"), SubResource("Resource_pqnh5"), SubResource("Resource_exobw")])
 
