@@ -159,6 +159,42 @@ func _ready() -> void:
 			counted_objects[quest_id] = {}
 
 
+func get_save_data() -> Dictionary:
+	return {
+		"current_index": current_quest_index,
+		"states": quest_states.duplicate(true),
+		"progress": quest_progress.duplicate(true),
+		"counted_objects": counted_objects.duplicate(true)
+	}
+
+
+func load_save_data(data: Dictionary) -> void:
+	current_quest_index = clampi(int(data.get("current_index", 0)), 0, quests.size())
+	quest_states = (data.get("states", {}) as Dictionary).duplicate(true)
+	quest_progress = (data.get("progress", {}) as Dictionary).duplicate(true)
+	counted_objects = (data.get("counted_objects", {}) as Dictionary).duplicate(true)
+	_ensure_quest_defaults()
+
+
+func reset_progress() -> void:
+	current_quest_index = 0
+	quest_states.clear()
+	quest_progress.clear()
+	counted_objects.clear()
+	_ensure_quest_defaults()
+
+
+func _ensure_quest_defaults() -> void:
+	for quest in quests:
+		var quest_id: String = quest["id"]
+		if not quest_states.has(quest_id):
+			quest_states[quest_id] = NOT_STARTED
+		if not quest_progress.has(quest_id):
+			quest_progress[quest_id] = 0
+		if not counted_objects.has(quest_id):
+			counted_objects[quest_id] = {}
+
+
 # =====================================================
 # GET CURRENT QUEST
 # =====================================================

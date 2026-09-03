@@ -20,6 +20,17 @@
 [ext_resource type="Texture2D" uid="uid://blkfb3fxx7sgn" path="res://art/settings_slider_fill.png" id="21_slider_fill"]
 [ext_resource type="Texture2D" uid="uid://cvtc38qg6fbwb" path="res://art/settings_slider_track.png" id="22_slider_track"]
 [ext_resource type="Texture2D" uid="uid://y4hm4v6wwp00" path="res://art/settings_slider_handle.svg" id="23_slider_knob"]
+[ext_resource type="Texture2D" path="res://art/save_game_title.png" id="24_save_title"]
+[ext_resource type="Texture2D" path="res://art/save_game_panel.png" id="25_save_panel"]
+[ext_resource type="Texture2D" path="res://art/slot_save_game.png" id="26_slot_save"]
+[ext_resource type="Texture2D" path="res://art/slot_create_new.png" id="27_slot_new"]
+[ext_resource type="Texture2D" path="res://art/slot_delete.png" id="28_slot_delete"]
+[ext_resource type="Texture2D" path="res://art/credits/credits_panel.png" id="29_credits_panel"]
+[ext_resource type="Texture2D" path="res://art/credits/credits_title.png" id="30_credits_title"]
+[ext_resource type="Texture2D" path="res://art/credits/a_new_dawn.png" id="31_credits_game"]
+[ext_resource type="Texture2D" path="res://art/credits/created_by_group_4.png" id="32_credits_group"]
+[ext_resource type="Texture2D" path="res://art/credits/divider.png" id="33_credits_divider"]
+[ext_resource type="Texture2D" path="res://art/credits/made_with_godot.png" id="34_credits_godot"]
 
 [sub_resource type="StyleBoxTexture" id="Style_button_disabled"]
 content_margin_left = 14.0
@@ -271,6 +282,54 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("Style_settings_backdrop")
 
+[node name="SaveSlotsBoard" type="TextureRect" parent="Center"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15
+anchor_top = 0.11
+anchor_right = 0.85
+anchor_bottom = 0.90
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("25_save_panel")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SaveSlotsTitle" type="TextureRect" parent="Center"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.30
+anchor_top = 0.075
+anchor_right = 0.70
+anchor_bottom = 0.225
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("24_save_title")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CreditsBoard" type="TextureRect" parent="Center"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.295
+anchor_top = 0.035
+anchor_right = 0.705
+anchor_bottom = 0.885
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("29_credits_panel")
+expand_mode = 1
+stretch_mode = 5
+
 [node name="MenuCard" type="PanelContainer" parent="Center" unique_id=1043804880]
 unique_name_in_owner = true
 layout_mode = 1
@@ -381,6 +440,178 @@ stretch_mode = 5
 [node name="BackButton" type="TextureButton" parent="Center/MenuCard/Panels/PlayPanel" unique_id=1846038191]
 layout_mode = 2
 size_flags_vertical = 3
+texture_normal = ExtResource("14_back")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="SaveSlotsPanel" type="VBoxContainer" parent="Center/MenuCard/Panels"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 2
+alignment = 0
+
+[node name="Heading" type="TextureRect" parent="Center/MenuCard/Panels/SaveSlotsPanel"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+texture = ExtResource("24_save_title")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Hint" type="Label" parent="Center/MenuCard/Panels/SaveSlotsPanel"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.83, 0.62, 1)
+theme_override_colors/font_outline_color = Color(0.13, 0.04, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 6
+text = "CHOOSE A NEW GAME SLOT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SlotsTopSpacer" type="Control" parent="Center/MenuCard/Panels/SaveSlotsPanel"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+
+[node name="Slot1" type="HBoxContainer" parent="Center/MenuCard/Panels/SaveSlotsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="Balance" type="Control" parent="Center/MenuCard/Panels/SaveSlotsPanel/Slot1"]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+
+[node name="Select" type="TextureButton" parent="Center/MenuCard/Panels/SaveSlotsPanel/Slot1"]
+custom_minimum_size = Vector2(96, 36)
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("27_slot_new")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Center/MenuCard/Panels/SaveSlotsPanel/Slot1/Select"]
+layout_mode = 1
+anchors_preset = 15
+anchor_left = 0.08
+anchor_right = 0.92
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.94, 0.72, 1)
+theme_override_colors/font_outline_color = Color(0.12, 0.035, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 6
+text = "EMPTY SLOT 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="Delete" type="TextureButton" parent="Center/MenuCard/Panels/SaveSlotsPanel/Slot1"]
+custom_minimum_size = Vector2(48, 18)
+layout_mode = 2
+texture_normal = ExtResource("28_slot_delete")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Slot2" type="HBoxContainer" parent="Center/MenuCard/Panels/SaveSlotsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="Balance" type="Control" parent="Center/MenuCard/Panels/SaveSlotsPanel/Slot2"]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+
+[node name="Select" type="TextureButton" parent="Center/MenuCard/Panels/SaveSlotsPanel/Slot2"]
+custom_minimum_size = Vector2(96, 36)
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("27_slot_new")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Center/MenuCard/Panels/SaveSlotsPanel/Slot2/Select"]
+layout_mode = 1
+anchors_preset = 15
+anchor_left = 0.08
+anchor_right = 0.92
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.94, 0.72, 1)
+theme_override_colors/font_outline_color = Color(0.12, 0.035, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 6
+text = "EMPTY SLOT 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="Delete" type="TextureButton" parent="Center/MenuCard/Panels/SaveSlotsPanel/Slot2"]
+custom_minimum_size = Vector2(48, 18)
+layout_mode = 2
+texture_normal = ExtResource("28_slot_delete")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Slot3" type="HBoxContainer" parent="Center/MenuCard/Panels/SaveSlotsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="Balance" type="Control" parent="Center/MenuCard/Panels/SaveSlotsPanel/Slot3"]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+
+[node name="Select" type="TextureButton" parent="Center/MenuCard/Panels/SaveSlotsPanel/Slot3"]
+custom_minimum_size = Vector2(96, 36)
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("27_slot_new")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Center/MenuCard/Panels/SaveSlotsPanel/Slot3/Select"]
+layout_mode = 1
+anchors_preset = 15
+anchor_left = 0.08
+anchor_right = 0.92
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.94, 0.72, 1)
+theme_override_colors/font_outline_color = Color(0.12, 0.035, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 6
+text = "EMPTY SLOT 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="Delete" type="TextureButton" parent="Center/MenuCard/Panels/SaveSlotsPanel/Slot3"]
+custom_minimum_size = Vector2(48, 18)
+layout_mode = 2
+texture_normal = ExtResource("28_slot_delete")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="BackSpacer" type="Control" parent="Center/MenuCard/Panels/SaveSlotsPanel"]
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+
+[node name="Back" type="TextureButton" parent="Center/MenuCard/Panels/SaveSlotsPanel"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(108, 36)
+layout_mode = 2
+size_flags_horizontal = 4
 texture_normal = ExtResource("14_back")
 ignore_texture_size = true
 stretch_mode = 5
@@ -531,23 +762,59 @@ stretch_mode = 5
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
-theme_override_constants/separation = 5
+theme_override_constants/separation = 2
 
 [node name="Heading" type="Label" parent="Center/MenuCard/Panels/CreditsPanel" unique_id=400577390]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "CREDITS"
 horizontal_alignment = 1
 
 [node name="Game" type="Label" parent="Center/MenuCard/Panels/CreditsPanel" unique_id=1740088244]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.93, 0.88, 0.6, 1)
 theme_override_font_sizes/font_size = 11
 text = "A New Dawn"
 horizontal_alignment = 1
 
+[node name="CreditsTitleArt" type="TextureRect" parent="Center/MenuCard/Panels/CreditsPanel"]
+custom_minimum_size = Vector2(150, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("30_credits_title")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="GameTitleArt" type="TextureRect" parent="Center/MenuCard/Panels/CreditsPanel"]
+custom_minimum_size = Vector2(130, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("31_credits_game")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="DividerTop" type="TextureRect" parent="Center/MenuCard/Panels/CreditsPanel"]
+custom_minimum_size = Vector2(190, 12)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("33_credits_divider")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="GroupHeadingArt" type="TextureRect" parent="Center/MenuCard/Panels/CreditsPanel"]
+custom_minimum_size = Vector2(145, 29)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("32_credits_group")
+expand_mode = 1
+stretch_mode = 5
+
 [node name="Creators" type="Label" parent="Center/MenuCard/Panels/CreditsPanel" unique_id=581698588]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.89, 0.57, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
 theme_override_font_sizes/font_size = 8
 text = "Created by Group 4
 
@@ -558,9 +825,33 @@ text = "Created by Group 4
 Made with Godot Engine"
 horizontal_alignment = 1
 
-[node name="BackButton" type="TextureButton" parent="Center/MenuCard/Panels/CreditsPanel" unique_id=1386531450]
-custom_minimum_size = Vector2(0, 28)
+[node name="DividerBottom" type="TextureRect" parent="Center/MenuCard/Panels/CreditsPanel"]
+custom_minimum_size = Vector2(190, 12)
 layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("33_credits_divider")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="GodotCreditArt" type="TextureRect" parent="Center/MenuCard/Panels/CreditsPanel"]
+custom_minimum_size = Vector2(140, 26)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("34_credits_godot")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CreditsBackButton" type="TextureButton" parent="Center"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.43
+anchor_top = 0.895
+anchor_right = 0.57
+anchor_bottom = 0.975
+grow_horizontal = 2
+grow_vertical = 2
 texture_normal = ExtResource("14_back")
 ignore_texture_size = true
 stretch_mode = 5
@@ -590,4 +881,4 @@ horizontal_alignment = 1
 [connection signal="value_changed" from="Center/MenuCard/Panels/SettingsPanel/MusicSlider" to="." method="_on_music_changed"]
 [connection signal="value_changed" from="Center/MenuCard/Panels/SettingsPanel/SfxSlider" to="." method="_on_sfx_changed"]
 [connection signal="pressed" from="Center/MenuCard/Panels/SettingsPanel/BackButton" to="." method="_on_back_pressed"]
-[connection signal="pressed" from="Center/MenuCard/Panels/CreditsPanel/BackButton" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Center/CreditsBackButton" to="." method="_on_back_pressed"]
