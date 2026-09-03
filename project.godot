@@ -22,10 +22,8 @@ QuestManager="*uid://vtrsawnemtdb"
 DialogueUI="*uid://dwvyhvm2kqki5"
 SettingsManager="*res://script/settings_manager.gd"
 SaveManager="*res://script/save_manager.gd"
-
 BossRoute="*res://boss_room/boss_route.gd"
 PauseSettings="*res://scenes/pause_settings.tscn"
-
 
 [display]
 
