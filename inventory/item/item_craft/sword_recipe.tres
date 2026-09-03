@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="CraftRecipe" format=3 uid="uid://cc0y7nbqgar3g"]
+
+[ext_resource type="Script" uid="uid://yndvrriqd716" path="res://Craft/CraftRequirement.gd" id="1_gxc41"]
+[ext_resource type="Resource" uid="uid://icl5wu0koi40" path="res://inventory/item/wood_plank.tres" id="2_77lnd"]
+[ext_resource type="Resource" uid="uid://bti50ms7l5hhx" path="res://inventory/item/rock.tres" id="2_mi3i4"]
+[ext_resource type="Resource" uid="uid://c3q01nq0wl6yl" path="res://inventory/item/stick.tres" id="3_n2erj"]
+[ext_resource type="Resource" uid="uid://ss1yg64wka4j" path="res://inventory/item/papaya.tres" id="5_dpa4l"]
+[ext_resource type="Script" uid="uid://fn00m4vtibsf" path="res://Craft/CraftRecipe.gd" id="5_qpu4i"]
+[ext_resource type="Resource" uid="uid://btpwsb8karru6" path="res://inventory/item/sword.tres" id="6_cogks"]
+
+[sub_resource type="Resource" id="Resource_tbhy6"]
+script = ExtResource("1_gxc41")
+item = ExtResource("2_77lnd")
+amount = 5
+metadata/_custom_type_script = "uid://yndvrriqd716"
+
+[sub_resource type="Resource" id="Resource_pq03i"]
+script = ExtResource("1_gxc41")
+item = ExtResource("3_n2erj")
+amount = 5
+metadata/_custom_type_script = "uid://yndvrriqd716"
+
+[sub_resource type="Resource" id="Resource_40wg4"]
+script = ExtResource("1_gxc41")
+item = ExtResource("2_mi3i4")
+amount = 5
+metadata/_custom_type_script = "uid://yndvrriqd716"
+
+[sub_resource type="Resource" id="Resource_0hdq6"]
+script = ExtResource("1_gxc41")
+item = ExtResource("5_dpa4l")
+metadata/_custom_type_script = "uid://yndvrriqd716"
+
+[resource]
+script = ExtResource("5_qpu4i")
+result_item = ExtResource("6_cogks")
+requirements = Array[ExtResource("1_gxc41")]([SubResource("Resource_tbhy6"), SubResource("Resource_pq03i"), SubResource("Resource_40wg4"), SubResource("Resource_0hdq6")])
+quest_id_on_craft = "craft_sword"
+metadata/_custom_type_script = "uid://fn00m4vtibsf"

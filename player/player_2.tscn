@@ -20,6 +20,7 @@
 [ext_resource type="AudioStream" uid="uid://dr1kb231bm5bd" path="res://sound/hurt.wav" id="17_rqrai"]
 [ext_resource type="PackedScene" uid="uid://y4m67n30y7jg" path="res://Craft/crafting_ui.tscn" id="19_6h3f7"]
 [ext_resource type="PackedScene" uid="uid://xl7ndpiyb2pf" path="res://scenes/hotbar_ui.tscn" id="19_e1dth"]
+[ext_resource type="Script" path="res://boss_room/pixel_health_bar.gd" id="20_pixel_health"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fcwim"]
 radius = 1.7281995
@@ -666,16 +667,16 @@ root_node = NodePath("../AnimatedSprite2D")
 libraries/ = SubResource("AnimationLibrary_ko3n8")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=476294899]
-offset = Vector2(20, 20)
-transform = Transform2D(1, 0, 0, 1, 20, 20)
+layer = 2
 
 [node name="ProgressBar" type="ProgressBar" parent="CanvasLayer" unique_id=2118140931]
-offset_left = -8.0
-offset_top = -8.0
-offset_right = 156.0
-offset_bottom = 19.0
-scale = Vector2(0.72710824, 0.5291003)
+offset_left = 10.0
+offset_top = 7.0
+offset_right = 134.0
+offset_bottom = 40.0
 value = 100.0
+show_percentage = false
+script = ExtResource("20_pixel_health")
 
 [node name="CraftingUI" parent="." unique_id=602573327 instance=ExtResource("19_6h3f7")]
 

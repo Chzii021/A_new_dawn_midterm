@@ -20,7 +20,7 @@ var max_hp: int = global.player_max_health
 
 # โบนัสเฉพาะพวกต้นไม้
 var tree_damage_bonus: int = 0
-
+var attack_damage_bonus: int = 0
 
 # =====================================================
 # INVENTORY
@@ -65,7 +65,7 @@ func _ready() -> void:
 	PlayerManager.player = self
 
 	# Damage ที่ใช้ตี Monster ยังคงเป็น Damage ปกติ
-	hurt_box.damage = base_attack_damage
+	hurt_box.damage = get_normal_damage()
 
 	health_bar.max_value = max_hp
 	health_bar.value = hp
@@ -199,6 +199,7 @@ func update_hp(delta: int) -> void:
 	global.player_health = hp
 	global.player_max_health = max_hp
 
+	health_bar.max_value = max_hp
 	health_bar.value = hp
 
 
@@ -243,25 +244,55 @@ func collect(item: InvItem) -> void:
 # =====================================================
 
 func equip_item(item: InvItem) -> void:
-	# ถอด Effect ของชิ้นเก่าก่อน
+
+	# รีเซ็ตโบนัสก่อน
+	attack_damage_bonus = 0
 	tree_damage_bonus = 0
 
-	# ถ้ามี Item ที่เลือกอยู่
+
 	if item != null:
-		tree_damage_bonus = item.tree_damage_bonus
+
+		attack_damage_bonus = (
+			item.attack_damage_bonus
+		)
+
+		tree_damage_bonus = (
+			item.tree_damage_bonus
+		)
+
+
+	# อัปเดต HurtBox ที่ใช้ตีมอนสเตอร์
+	hurt_box.damage = get_normal_damage()
+
+
+	print(
+		"Equip: ",
+		item.name if item != null else "None"
+	)
+
+	print(
+		"Monster Damage = ",
+		get_normal_damage()
+	)
+
+	print(
+		"Tree Damage = ",
+		get_tree_damage()
+	)
 
 # =====================================================
 # DAMAGE FUNCTIONS
 # =====================================================
-
-# Damage ปกติ
-# ใช้กับ Monster
 func get_normal_damage() -> int:
-	return base_attack_damage
+
+	return (
+		base_attack_damage
+		+ attack_damage_bonus
+	)
 
 
-# Damage สำหรับต้นไม้ / ตอไม้ / ต้นไม้ตาย
 func get_tree_damage() -> int:
+
 	return (
 		base_attack_damage
 		+ tree_damage_bonus

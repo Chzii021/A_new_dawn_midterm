@@ -7,5 +7,5 @@
 script = ExtResource("1_g8xk4")
 name = "axe"
 texture = ExtResource("2_g8xk4")
-tree_damage_bonus = 1
+tree_damage_bonus = 2
 metadata/_custom_type_script = "uid://dwqo51p6jj6gf"

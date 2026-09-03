@@ -1,6 +1,61 @@
 [gd_scene format=3 uid="uid://ddcaxvha2crwb"]
 
 [ext_resource type="Texture2D" uid="uid://t0mi313ve21y" path="res://art/objects/NPC_House.png" id="1_bk0yo"]
+[ext_resource type="Script" uid="uid://bdw1jo28dvfqu" path="res://NPC/npc_house.gd" id="1_mlqu8"]
+[ext_resource type="Script" uid="uid://yndvrriqd716" path="res://Craft/CraftRequirement.gd" id="2_8yrk8"]
+[ext_resource type="Resource" uid="uid://pfs8ew2ooapc" path="res://inventory/item/wood.tres" id="3_n2kan"]
+[ext_resource type="Resource" uid="uid://bti50ms7l5hhx" path="res://inventory/item/rock.tres" id="4_1nkra"]
+[ext_resource type="Resource" uid="uid://c3q01nq0wl6yl" path="res://inventory/item/stick.tres" id="5_uevwn"]
+[ext_resource type="Resource" uid="uid://ss1yg64wka4j" path="res://inventory/item/papaya.tres" id="6_dj0om"]
+[ext_resource type="Resource" uid="uid://icl5wu0koi40" path="res://inventory/item/wood_plank.tres" id="7_aau0h"]
+[ext_resource type="PackedScene" uid="uid://ccr3imgi0nqge" path="res://Repair/repair_ui.tscn" id="9_6wutr"]
+
+[sub_resource type="Resource" id="Resource_h412h"]
+script = ExtResource("2_8yrk8")
+item = ExtResource("3_n2kan")
+amount = 20
+metadata/_custom_type_script = "uid://yndvrriqd716"
+
+[sub_resource type="Resource" id="Resource_3h1uy"]
+script = ExtResource("2_8yrk8")
+item = ExtResource("4_1nkra")
+amount = 3
+metadata/_custom_type_script = "uid://yndvrriqd716"
+
+[sub_resource type="Resource" id="Resource_uuv3w"]
+script = ExtResource("2_8yrk8")
+item = ExtResource("5_uevwn")
+amount = 3
+metadata/_custom_type_script = "uid://yndvrriqd716"
+
+[sub_resource type="Resource" id="Resource_e7v0d"]
+script = ExtResource("2_8yrk8")
+item = ExtResource("6_dj0om")
+metadata/_custom_type_script = "uid://yndvrriqd716"
+
+[sub_resource type="Resource" id="Resource_cqkej"]
+script = ExtResource("2_8yrk8")
+item = ExtResource("7_aau0h")
+amount = 12
+metadata/_custom_type_script = "uid://yndvrriqd716"
+
+[sub_resource type="Resource" id="Resource_tovqu"]
+script = ExtResource("2_8yrk8")
+item = ExtResource("4_1nkra")
+amount = 5
+metadata/_custom_type_script = "uid://yndvrriqd716"
+
+[sub_resource type="Resource" id="Resource_pqnh5"]
+script = ExtResource("2_8yrk8")
+item = ExtResource("5_uevwn")
+amount = 5
+metadata/_custom_type_script = "uid://yndvrriqd716"
+
+[sub_resource type="Resource" id="Resource_exobw"]
+script = ExtResource("2_8yrk8")
+item = ExtResource("6_dj0om")
+amount = 3
+metadata/_custom_type_script = "uid://yndvrriqd716"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_22c7v"]
 atlas = ExtResource("1_bk0yo")
@@ -41,11 +96,17 @@ animations = [{
 "speed": 0.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_h412h"]
+
 [node name="Npc_house" type="StaticBody2D" unique_id=1511785610]
 y_sort_enabled = true
 position = Vector2(-0.006416321, -0.044906616)
 collision_layer = 16
 collision_mask = 0
+script = ExtResource("1_mlqu8")
+level_2_quest_id = "upgrade_grandma_house_lv2"
+level_2_requirements = Array[ExtResource("2_8yrk8")]([SubResource("Resource_h412h"), SubResource("Resource_3h1uy"), SubResource("Resource_uuv3w"), SubResource("Resource_e7v0d")])
+level_3_requirements = Array[ExtResource("2_8yrk8")]([SubResource("Resource_cqkej"), SubResource("Resource_tovqu"), SubResource("Resource_pqnh5"), SubResource("Resource_exobw")])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1460976128]
 position = Vector2(-13.092089, -10.342154)
@@ -58,3 +119,20 @@ offset = Vector2(163.47058, -56.15428)
 y_sort_enabled = true
 position = Vector2(-0.9002571, -10.996727)
 polygon = PackedVector2Array(-20.461557, 7.152214, -18.763313, 9.884171, 4.4149323, 19.74171, 23.47131, 9.367313, 22.363758, 7.078377, 4.642948, -3.7017956, -4.9558296, -4.2186527)
+
+[node name="interactable_area" type="Area2D" parent="." unique_id=55946117]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="interactable_area" unique_id=40798775]
+position = Vector2(0, -8.4517975)
+scale = Vector2(3.096659, 3.096659)
+shape = SubResource("CircleShape2D_h412h")
+
+[node name="RepairUI" parent="." unique_id=630304382 instance=ExtResource("9_6wutr")]
+offset_left = 24.332464
+offset_top = -24.88098
+offset_right = 24.332464
+offset_bottom = -24.88098
+scale = Vector2(0.5190284, 0.35378948)
+
+[connection signal="body_entered" from="interactable_area" to="." method="_on_interactable_area_body_entered"]
+[connection signal="body_exited" from="interactable_area" to="." method="_on_interactable_area_body_exited"]
