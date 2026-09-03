@@ -8,6 +8,21 @@ var inv: Inv = null
 @onready var requirements_container: VBoxContainer = $Margin/HBox/Info/Requirements
 @onready var craft_button: Button = $Margin/HBox/CraftButton
 
+func _ready() -> void:
+	var skin = preload("res://inventory/forest_ui_theme.gd")
+	custom_minimum_size = Vector2(188, 35)
+	scale = Vector2.ONE
+	add_theme_stylebox_override("panel", skin.box(Color("233c2c"), Color("4e6040")))
+	skin.margins($Margin, 2)
+	item_icon.custom_minimum_size = Vector2(24, 24)
+	item_icon.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	$Margin/HBox.add_theme_constant_override("separation", 5)
+	requirements_container.modulate = Color.WHITE
+	requirements_container.add_theme_constant_override("separation", 0)
+	craft_button.custom_minimum_size = Vector2(36, 20)
+	craft_button.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	craft_button.add_theme_font_size_override("font_size", 7)
+
 
 func setup(_recipe: CraftRecipe, _inv: Inv) -> void:
 	recipe = _recipe
@@ -47,6 +62,7 @@ func refresh() -> void:
 
 	# ลบข้อความ Requirement เก่า
 	for child in requirements_container.get_children():
+		requirements_container.remove_child(child)
 		child.queue_free()
 
 
@@ -65,6 +81,8 @@ func refresh() -> void:
 
 
 		var label := Label.new()
+		label.add_theme_font_size_override("font_size", 7)
+		label.add_theme_color_override("font_color", Color("b7d38e") if current_amount >= requirement.amount else Color("d18d65"))
 
 		label.text = (
 			requirement.item.name
@@ -82,6 +100,7 @@ func refresh() -> void:
 	not can_craft()
 	or not global.near_crafting_table
 )
+	craft_button.tooltip_text = "Stand near the crafting table" if not global.near_crafting_table else ("Craft item" if can_craft() else "Missing materials or inventory space")
 
 func can_craft() -> bool:
 	if recipe == null:

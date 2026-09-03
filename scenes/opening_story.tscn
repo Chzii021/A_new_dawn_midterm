@@ -65,9 +65,11 @@ color = Color(0, 0, 0, 1)
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.08
-anchor_top = 0.73
+anchor_top = 1.0
 anchor_right = 0.92
-anchor_bottom = 0.93
+anchor_bottom = 1.0
+offset_top = -72.0
+offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -75,21 +77,21 @@ theme_override_styles/panel = SubResource("CaptionStyle")
 
 [node name="Margin" type="MarginContainer" parent="CaptionPanel"]
 layout_mode = 2
-theme_override_constants/margin_left = 24
-theme_override_constants/margin_top = 12
-theme_override_constants/margin_right = 24
-theme_override_constants/margin_bottom = 12
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 4
 
 [node name="Caption" type="Label" parent="CaptionPanel/Margin"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.94, 0.78, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 4
-theme_override_font_sizes/font_size = 25
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 10
 text = "วิกรมใช้ชีวิตทำงานอยู่ในกรุงเทพฯ จนกระทั่งได้รับสายจากคุณยาย"
 horizontal_alignment = 1
 vertical_alignment = 1
-autowrap_mode = 2
+autowrap_mode = 3
 
 [node name="Skip" type="Button" parent="."]
 layout_mode = 1
@@ -101,22 +103,25 @@ anchor_bottom = 0.11
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 0.88, 0.54, 1)
-theme_override_font_sizes/font_size = 15
+theme_override_font_sizes/font_size = 9
 text = "ข้าม  ▶▶"
 
 [node name="Hint" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.72
-anchor_top = 0.94
+anchor_left = 0.08
+anchor_top = 1.0
 anchor_right = 0.97
-anchor_bottom = 0.98
+anchor_bottom = 1.0
+offset_top = -17.0
+offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0.62)
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 7
 text = "คลิก หรือ Space เพื่อดำเนินเรื่องต่อ"
 horizontal_alignment = 2
+vertical_alignment = 1
 
 [node name="Fade" type="ColorRect" parent="."]
 layout_mode = 1
@@ -139,4 +144,3 @@ volume_db = -10.0
 one_shot = true
 
 [connection signal="pressed" from="Skip" to="." method="_on_skip_pressed"]
-

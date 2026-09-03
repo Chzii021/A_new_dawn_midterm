@@ -21,6 +21,8 @@ var _player_failed: bool = false
 @onready var hint: Label = $HUD/Hint
 
 func _ready() -> void:
+	global.current_scene = "forest_boss_room" if scene_file_path == BossRoute.ARENA else "boss_room"
+	global.transition_scene = false
 	player.position = $PlayerSpawn.position
 	BossRoute.travel_failed.connect(_on_route_failed)
 	# Configure only this player instance; leave the shared player scene untouched.
@@ -97,6 +99,24 @@ func finish_battle() -> void:
 	var title: Label = get_node_or_null("HUD/BossHealth/Title")
 	if title != null:
 		title.text = "FOREST GUARDIAN — DEFEATED"
+	if scene_file_path == BossRoute.ARENA:
+		_leaving = true
+		player.velocity = Vector2.ZERO
+		player.process_mode = Node.PROCESS_MODE_DISABLED
+		_play_ending.call_deferred()
+
+func _play_ending() -> void:
+	# Preserve the current slot before removing its player. The ending never saves
+	# image-scene coordinates over gameplay progress or erases the player's slot.
+	SaveManager.save_game()
+	var was_active: bool = SaveManager.game_active
+	SaveManager.game_active = false
+	var error := get_tree().change_scene_to_file("res://boss_room/ending_story.tscn")
+	if error != OK:
+		SaveManager.game_active = was_active
+		_leaving = false
+		player.process_mode = Node.PROCESS_MODE_INHERIT
+		hint.text = "Ending could not open — use the exit to return"
 
 func _physics_process(_delta: float) -> void:
 	if battle_active and player.hp <= 0 and not _player_failed:

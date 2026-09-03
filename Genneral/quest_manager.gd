@@ -1,4 +1,5 @@
 extends Node
+signal quest_state_changed
 
 
 const NOT_STARTED := 0
@@ -174,6 +175,7 @@ func load_save_data(data: Dictionary) -> void:
 	quest_progress = (data.get("progress", {}) as Dictionary).duplicate(true)
 	counted_objects = (data.get("counted_objects", {}) as Dictionary).duplicate(true)
 	_ensure_quest_defaults()
+	quest_state_changed.emit()
 
 
 func reset_progress() -> void:
@@ -182,6 +184,7 @@ func reset_progress() -> void:
 	quest_progress.clear()
 	counted_objects.clear()
 	_ensure_quest_defaults()
+	quest_state_changed.emit()
 
 
 func _ensure_quest_defaults() -> void:
@@ -478,6 +481,7 @@ func complete_current_quest() -> void:
 	# =========================================
 
 	current_quest_index += 1
+	quest_state_changed.emit()
 
 
 	if current_quest_index < quests.size():

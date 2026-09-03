@@ -189,6 +189,28 @@ func _take_damage(hurt_box: HurtBox) -> void:
 		die()
 
 
+func consume_inventory_slot(source: Inv, index: int) -> bool:
+	# Consume the clicked stack only; full health and death never waste food.
+	if source == null or source != inv or hp <= 0 or hp >= max_hp:
+		return false
+	if not is_inside_tree() or get_tree().paused or not can_process():
+		return false
+	if index < 0 or index >= source.slots.size():
+		return false
+	var slot: InvSlot = source.slots[index]
+	if slot == null or slot.item == null or slot.amount <= 0:
+		return false
+	var healing: int = slot.item.healing_amount
+	if healing <= 0:
+		return false
+	slot.amount -= 1
+	if slot.amount == 0:
+		slot.item = null
+	update_hp(healing)
+	source.update.emit()
+	return true
+
+
 func update_hp(delta: int) -> void:
 	hp = clampi(
 		hp + delta,
@@ -244,6 +266,7 @@ func collect(item: InvItem) -> void:
 # =====================================================
 
 func equip_item(item: InvItem) -> void:
+	$HeldItem.set_item(item)
 
 	# รีเซ็ตโบนัสก่อน
 	attack_damage_bonus = 0

@@ -8,4 +8,5 @@ script = ExtResource("1_qc2pp")
 name = "sword"
 texture = ExtResource("2_qc2pp")
 tree_damage_bonus = 5
+attack_damage_bonus = 4
 metadata/_custom_type_script = "uid://dwqo51p6jj6gf"

@@ -8,3 +8,4 @@ class_name  InvItem
 @export_category("Item Effect")
 @export var tree_damage_bonus: int = 0
 @export var attack_damage_bonus: int = 0
+@export var healing_amount: int = 0

@@ -9,7 +9,7 @@ const ROOT_EFFECT: PackedScene = preload("res://boss_room/root_eruption.tscn")
 enum BossState { INTRO, CHASE, WINDUP, STRIKE, RECOVER, DEFEATED, STOPPED }
 enum Attack { SWEEP, ROOTS }
 
-@export_range(1, 500, 1) var max_health: int = 24
+@export_range(1, 500, 1) var max_health: int = 80
 @export var move_speed: float = 64.0
 @export var sweep_damage: int = 10
 @export var roots_damage: int = 15

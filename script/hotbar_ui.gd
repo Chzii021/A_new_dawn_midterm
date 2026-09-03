@@ -12,6 +12,12 @@ const HOTBAR_SIZE: int = 4
 
 
 func _ready() -> void:
+	hotbar.scale = Vector2.ONE
+	hotbar.offset_left = -54
+	hotbar.offset_right = 54
+	hotbar.offset_top = -32
+	hotbar.offset_bottom = -8
+	hotbar.add_theme_constant_override("separation", 3)
 	slots = hotbar.get_children()
 
 	if not inv.update.is_connected(update_hotbar):
@@ -98,11 +104,15 @@ func apply_selected_item() -> void:
 	if slot == null:
 		return
 
-	var selected_item: InvItem = slot.item
+	var selected_item: InvItem = slot.item if slot.amount > 0 else null
 
-	var player = PlayerManager.player
+	# Bind this hotbar to its own player, not the previous scene's player.
+	var player = get_parent()
 
 	if player == null:
+		return
+	if not player.is_node_ready():
+		apply_selected_item.call_deferred()
 		return
 
 	if player.has_method("equip_item"):
@@ -113,7 +123,7 @@ func update_selection_visual() -> void:
 	for i in range(slots.size()):
 
 		if i == selected_index:
-			slots[i].modulate = Color(1.0, 1.0, 0.65)
+			slots[i].set_selected(true)
 
 		else:
-			slots[i].modulate = Color.WHITE
+			slots[i].set_selected(false)

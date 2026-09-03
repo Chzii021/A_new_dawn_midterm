@@ -7,4 +7,5 @@
 script = ExtResource("1_d6tvx")
 name = "papaya"
 texture = ExtResource("2_d6tvx")
+healing_amount = 10
 metadata/_custom_type_script = "uid://dwqo51p6jj6gf"

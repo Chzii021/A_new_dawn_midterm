@@ -4,6 +4,7 @@ extends Node2D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	global.current_scene = "world"
+	global.transition_scene = false
 	$player.current_camera()
 	audio.play()
 	print(global.current_scene)
@@ -34,7 +35,7 @@ func _on_ciffside_transition_point_body_exited(body: Node2D) -> void:
 func change_scene():
 	if global.transition_scene == true:
 		if global.current_scene == "world":
-			get_tree().change_scene_to_file("res://scenes/village.tscn")
-			global.game_first_loading = false
-			global.finish_changescenes()
+			global.transition_scene = false
+			if BossRoute.travel(BossRoute.VILLAGE, BossRoute.VILLAGE_ENTRY):
+				global.game_first_loading = false
 			

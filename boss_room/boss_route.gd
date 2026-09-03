@@ -1,11 +1,14 @@
 extends Node
-## Route-only session state. Deliberately does not read or modify any quests.
+## Reads completed main-quest state; never completes quests on the player's behalf.
 signal access_changed(unlocked: bool)
 signal travel_failed(path: String)
 
 const TRAIL := "res://boss_room/forest_path.tscn"
 const ARENA := "res://boss_room/forest_boss_room.tscn"
 const VILLAGE := "res://scenes/village.tscn"
+const WORLD := "res://scenes/world.tscn"
+const VILLAGE_ENTRY := Vector2(24, 24)
+const WORLD_RETURN := Vector2(585, 252)
 const VILLAGE_RETURN := Vector2(360, 318)
 const TRAIL_START := Vector2(160, 450)
 const TRAIL_RETURN := Vector2(160, 114)
@@ -17,6 +20,11 @@ var _spawn: Vector2 = Vector2.INF
 
 func _ready() -> void:
 	get_tree().scene_changed.connect(_on_scene_changed)
+	QuestManager.quest_state_changed.connect(_sync_quest_access)
+	_sync_quest_access()
+
+func _sync_quest_access() -> void:
+	set_boss_unlocked(QuestManager.get_quest_state("craft_sword") == QuestManager.COMPLETED)
 
 func set_boss_unlocked(value: bool) -> void:
 	if boss_unlocked != value:
@@ -51,7 +59,7 @@ func _on_scene_changed() -> void:
 	if scene != null and scene.scene_file_path == _destination and _spawn.is_finite():
 		var player = PlayerManager.player
 		if is_instance_valid(player) and scene.is_ancestor_of(player):
-			player.global_position = _spawn
+			player.global_position = (scene as Node2D).to_global(_spawn)
 			player.velocity = Vector2.ZERO
 			var camera: Camera2D = get_viewport().get_camera_2d()
 			if camera != null:

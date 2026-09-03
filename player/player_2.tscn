@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://y4m67n30y7jg" path="res://Craft/crafting_ui.tscn" id="19_6h3f7"]
 [ext_resource type="PackedScene" uid="uid://xl7ndpiyb2pf" path="res://scenes/hotbar_ui.tscn" id="19_e1dth"]
 [ext_resource type="Script" path="res://boss_room/pixel_health_bar.gd" id="20_pixel_health"]
+[ext_resource type="Script" path="res://player/held_item.gd" id="21_held_item"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fcwim"]
 radius = 1.7281995
@@ -679,5 +680,7 @@ show_percentage = false
 script = ExtResource("20_pixel_health")
 
 [node name="CraftingUI" parent="." unique_id=602573327 instance=ExtResource("19_6h3f7")]
+[node name="HeldItem" type="Node2D" parent="."]
+script = ExtResource("21_held_item")
 
 [node name="HotbarUI" parent="." unique_id=89102549 instance=ExtResource("19_e1dth")]

@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" path="res://boss_room/guardian_preview.tscn" id="4"]
 [ext_resource type="PackedScene" path="res://boss_room/forest_guardian.tscn" id="5"]
 [ext_resource type="Script" uid="uid://hfdiea0icj08" path="res://boss_room/pixel_health_bar.gd" id="6"]
+[ext_resource type="Script" path="res://boss_room/forest_defeat_ui.gd" id="8_defeat"]
+[ext_resource type="Script" path="res://boss_room/forest_retry_button.gd" id="9_retry"]
 [ext_resource type="AudioStream" uid="uid://drvcscmhsrj0e" path="res://boss_room/Swordland.mp3" id="7_ccq3b"]
 
 [sub_resource type="RectangleShape2D" id="Gate"]
@@ -161,37 +163,56 @@ caption = "FOREST GUARDIAN"
 [node name="ResultUI" type="CanvasLayer" parent="." unique_id=676420138]
 layer = 5
 
-[node name="Panel" type="PanelContainer" parent="ResultUI" unique_id=1625579077]
+[node name="Shade" type="ColorRect" parent="ResultUI"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.015, 0.035, 0.025, 0.78)
+
+[node name="Panel" type="Control" parent="ResultUI" unique_id=1625579077]
 visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -80.0
-offset_top = -40.0
-offset_right = 80.0
-offset_bottom = 40.0
-theme_override_styles/panel = SubResource("ResultPanel")
+offset_left = -122.0
+offset_top = -87.0
+offset_right = 122.0
+offset_bottom = 87.0
+script = ExtResource("8_defeat")
 
-[node name="VBox" type="VBoxContainer" parent="ResultUI/Panel" unique_id=1606991424]
-layout_mode = 2
-theme_override_constants/separation = 7
+[node name="VBox" type="Control" parent="ResultUI/Panel" unique_id=1606991424]
+layout_mode = 0
+offset_right = 244.0
+offset_bottom = 174.0
+mouse_filter = 2
 
 [node name="Title" type="Label" parent="ResultUI/Panel/VBox" unique_id=1284213486]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "YOU FELL"
 horizontal_alignment = 1
 
 [node name="Tip" type="Label" parent="ResultUI/Panel/VBox" unique_id=269271418]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 7
-text = "Leave the warning circle before it fills."
+text = "Dodge the blade. Strike when the guardian rests."
 horizontal_alignment = 1
 
 [node name="Retry" type="Button" parent="ResultUI/Panel/VBox" unique_id=1618843535]
-layout_mode = 2
+layout_mode = 0
+offset_left = 49.0
+offset_top = 127.0
+offset_right = 195.0
+offset_bottom = 152.0
+mouse_default_cursor_shape = 2
+script = ExtResource("9_retry")
 theme_override_font_sizes/font_size = 9
 text = "TRY AGAIN"
 

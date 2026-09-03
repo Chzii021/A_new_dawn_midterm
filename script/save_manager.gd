@@ -11,6 +11,7 @@ var game_active := false
 var active_slot := 1
 var _loaded_position := Vector2.ZERO
 var _has_loaded_position := false
+var _load_destination := ""
 
 
 func _ready() -> void:
@@ -20,7 +21,7 @@ func _ready() -> void:
 	timer.autostart = true
 	timer.timeout.connect(save_game)
 	add_child(timer)
-	get_tree().node_added.connect(_on_node_added)
+	get_tree().scene_changed.connect(_on_scene_changed)
 
 
 func _save_path(slot: int) -> String:
@@ -92,19 +93,30 @@ func load_game(slot: int = 1) -> bool:
 	QuestManager.load_save_data(config.get_value("quests", "data", {}))
 	_load_inventory(config.get_value("inventory", "slots", []))
 	game_active = true
-	var scene_path := VILLAGE_SCENE if global.current_scene == "ciff_side" else WORLD_SCENE
-	get_tree().change_scene_to_file(scene_path)
-	return true
+	_load_destination = _scene_for_save(global.current_scene)
+	# A running boss encounter is not serialized. Resume safely outside its gate.
+	if global.current_scene == "forest_boss_room":
+		_loaded_position = BossRoute.TRAIL_RETURN
+	global.transition_scene = false
+	var error := get_tree().change_scene_to_file(_load_destination)
+	if error != OK:
+		_has_loaded_position = false
+		_load_destination = ""
+		game_active = false
+	return error == OK
+
+func _scene_for_save(scene_id: String) -> String:
+	match scene_id:
+		"village", "ciff_side": return VILLAGE_SCENE
+		"forest_path", "forest_boss_room": return BossRoute.TRAIL
+		"boss_room": return "res://boss_room/boss_room.tscn"
+	return WORLD_SCENE
 
 
 func save_game() -> void:
 	if not game_active:
 		return
-	var player = PlayerManager.player
-	if is_instance_valid(player):
-		global.player_health = player.hp
-		_loaded_position = player.global_position
-		_has_loaded_position = true
+	_capture_player_position()
 	var config := ConfigFile.new()
 	config.set_value("save", "version", 1)
 	config.set_value("save", "slot", active_slot)
@@ -176,10 +188,29 @@ func _load_inventory(data: Array) -> void:
 	inventory.update.emit()
 
 
-func _on_node_added(node: Node) -> void:
-	if _has_loaded_position and node is player_2:
-		node.call_deferred("set_global_position", _loaded_position)
-		_has_loaded_position = false
+func _capture_player_position() -> void:
+	var player = PlayerManager.player
+	if is_instance_valid(player):
+		global.player_health = player.hp
+		_loaded_position = player.global_position
+	# Saving must never arm a teleport on the next map transition.
+
+func _on_scene_changed() -> void:
+	if not _has_loaded_position:
+		return
+	var scene := get_tree().current_scene
+	if scene == null or scene.scene_file_path != _load_destination:
+		return
+	var player = PlayerManager.player
+	if is_instance_valid(player) and scene.is_ancestor_of(player):
+		player.global_position = _loaded_position
+		player.velocity = Vector2.ZERO
+		var camera := get_viewport().get_camera_2d()
+		if camera != null:
+			camera.reset_smoothing()
+			camera.force_update_scroll()
+	_has_loaded_position = false
+	_load_destination = ""
 
 
 func _notification(what: int) -> void:
