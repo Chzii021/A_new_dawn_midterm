@@ -126,6 +126,8 @@ func _ready() -> void:
 # =====================================================
 
 func _process(delta: float) -> void:
+
+	QuestManager.update_quests()
 	update_quest_mark()
 
 
@@ -572,6 +574,11 @@ func _on_chat_detection_area_body_exited(
 		talk_hint.visible = false
 		quest_mark.visible = false
 
+
+# =====================================================
+# คุย NPC
+# =====================================================
+
 func talk_to_npc() -> void:
 
 	if is_talking:
@@ -579,232 +586,126 @@ func talk_to_npc() -> void:
 
 
 	is_talking = true
-
 	velocity = Vector2.ZERO
 
 	play_talk_animation()
 
 
-	# =========================================
-	# หา Quest ปัจจุบัน
-	# =========================================
-
-	var quest: Dictionary = (
-		QuestManager.get_current_quest()
+	var state: int = QuestManager.get_quest_state(
+		quest_id
 	)
 
 
-	# =========================================
-	# ทำทุก Quest จบแล้ว
-	# =========================================
-
-	if quest.is_empty():
-
-		await DialogueUI.message(
-			npc_name,
-			"Thank you for everything!",
-			npc_portrait
-		)
-
-		is_talking = false
-
-		play_idle_animation()
-
-		return
-
-
-	var quest_id: String = (
-		quest["id"]
-	)
-
-
-	var state: int = (
-		QuestManager.get_quest_state(
-			quest_id
-		)
-	)
-
-
-	# =========================================
-	# ยังไม่รับ Quest
-	# =========================================
+	# =====================================================
+	# คุยครั้งแรก
+	# =====================================================
 
 	if state == QuestManager.NOT_STARTED:
 
-		var accepted: bool = (
-			await DialogueUI.ask(
-				npc_name,
-				quest["start_text"],
-				npc_portrait
-			)
+		var accepted: bool = await DialogueUI.ask(
+			npc_name,
+			"โต๊ะคราฟในหมู่บ้านพัง ช่วยซ่อมให้หน่อยได้ไหม?",
+			npc_portrait
 		)
 
 
 		if accepted:
 
-			QuestManager.start_current_quest()
-
-
-	# =========================================
-	# กำลังทำ Quest
-	# =========================================
-
-	elif state == QuestManager.ACTIVE:
-
-		var text: String = (
-			quest["active_text"]
-		)
-
-
-		var target: int = (
-			quest.get(
-				"target",
-				1
+			QuestManager.start_quest(
+				quest_id
 			)
-		)
-
-
-		# Quest ที่มี Progress
-		if target > 1:
-
-			var progress: int = (
-				QuestManager.get_progress(
-					quest_id
-				)
-			)
-
-
-			text += (
-				"\n\nProgress: "
-				+ str(progress)
-				+ "/"
-				+ str(target)
-			)
-
-
-		await DialogueUI.message(
-			npc_name,
-			text,
-			npc_portrait
-		)
-
-
-	# =========================================
-	# ทำเสร็จแล้ว
-	# =========================================
-
-	elif (
-		state
-		== QuestManager.READY_TO_TURN_IN
-	):
-
-		await DialogueUI.message(
-			npc_name,
-			quest["complete_text"],
-			npc_portrait
-		)
-
-
-		# Quest ปัจจุบันจบ
-		QuestManager.complete_current_quest()
-
-
-		# =====================================
-		# มี Quest ต่อ
-		# =====================================
-
-		var next_quest: Dictionary = (
-			QuestManager.get_current_quest()
-		)
-
-
-		if not next_quest.is_empty():
-
-			var accepted: bool = (
-				await DialogueUI.ask(
-					npc_name,
-					next_quest["start_text"],
-					npc_portrait
-				)
-			)
-
-
-			if accepted:
-
-				QuestManager.start_current_quest()
-
 
 		else:
 
-			await DialogueUI.message(
-				npc_name,
-				"Thank you for everything!",
-				npc_portrait
-			)
+			print("Player ปฏิเสธ Quest")
+
+
+	# =====================================================
+	# รับ Quest แล้ว
+	# =====================================================
+
+	elif state == QuestManager.ACTIVE:
+
+		await DialogueUI.message(
+			npc_name,
+			"ช่วยไปซ่อมโต๊ะคราฟในหมู่บ้านให้หน่อยนะ",
+			npc_portrait
+		)
+
+
+	# =====================================================
+	# ซ่อมเสร็จแล้ว
+	# =====================================================
+
+	elif state == QuestManager.READY_TO_TURN_IN:
+
+		await DialogueUI.message(
+			npc_name,
+			"ซ่อมโต๊ะคราฟเสร็จแล้วเหรอ ขอบคุณมาก!",
+			npc_portrait
+		)
+
+
+		QuestManager.complete_quest(
+			quest_id
+		)
+
+
+	# =====================================================
+	# Quest จบแล้ว
+	# =====================================================
+
+	elif state == QuestManager.COMPLETED:
+
+		await DialogueUI.message(
+			npc_name,
+			"ขอบคุณสำหรับความช่วยเหลือ!",
+			npc_portrait
+		)
 
 
 	update_quest_mark()
-
 
 	is_talking = false
 
 	play_idle_animation()
 
+# =====================================================
+# QUEST MARK
+# =====================================================
+
 func update_quest_mark() -> void:
 
 	if not player_near:
-
 		quest_mark.visible = false
-
 		return
 
 
-	var quest: Dictionary = (
-		QuestManager.get_current_quest()
-	)
-
-
-	if quest.is_empty():
-
-		quest_mark.visible = false
-
-		return
-
-
-	var quest_id: String = (
-		quest["id"]
-	)
-
-
-	var state: int = (
-		QuestManager.get_quest_state(
-			quest_id
-		)
+	var state: int = QuestManager.get_quest_state(
+		quest_id
 	)
 
 
 	match state:
 
 		QuestManager.NOT_STARTED:
-
 			quest_mark.text = "!"
 			quest_mark.visible = true
 
 
 		QuestManager.ACTIVE:
-
 			quest_mark.visible = false
 
 
 		QuestManager.READY_TO_TURN_IN:
-
 			quest_mark.text = "?"
 			quest_mark.visible = true
 
 
 		QuestManager.COMPLETED:
-
 			quest_mark.visible = false
+
+
 # =====================================================
 # WALK ANIMATION
 # =====================================================

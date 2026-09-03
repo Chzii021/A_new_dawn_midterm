@@ -27,10 +27,6 @@ var well_states: Dictionary = {}
 var npc_states: Dictionary = {}
 
 var dialogue_open: bool = false
-var near_crafting_table: bool = false
-
-var house_states: Dictionary = {}
-
 
 func finish_changescenes():
 	if transition_scene == true:

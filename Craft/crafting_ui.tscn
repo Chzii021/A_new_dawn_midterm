@@ -6,14 +6,12 @@
 [ext_resource type="Resource" uid="uid://b10vb70ghynsd" path="res://inventory/item/item_craft/axe_recipe.tres" id="4_innby"]
 [ext_resource type="PackedScene" uid="uid://ca6l3ljpqxuce" path="res://Craft/craft_recipe_row.tscn" id="5_3t0k7"]
 [ext_resource type="Resource" uid="uid://b3f0qhej1hv1v" path="res://inventory/item/item_craft/bucket_reclipe.tres" id="5_t12i1"]
-[ext_resource type="Resource" uid="uid://bh7pbr7mp5fjg" path="res://inventory/item/item_craft/plank_recipe.tres" id="6_s0nxo"]
-[ext_resource type="Resource" uid="uid://cc0y7nbqgar3g" path="res://inventory/item/item_craft/sword_recipe.tres" id="7_dd63t"]
 [ext_resource type="PackedScene" uid="uid://rnss2qh4lusc" path="res://inventory/inventory_panel.tscn" id="7_innby"]
 
 [node name="CraftingUI" type="CanvasLayer" unique_id=602573327]
 script = ExtResource("1_w7otf")
 inv = ExtResource("2_3t0k7")
-recipes = Array[ExtResource("3_t12i1")]([ExtResource("4_innby"), ExtResource("5_t12i1"), ExtResource("6_s0nxo"), ExtResource("7_dd63t")])
+recipes = Array[ExtResource("3_t12i1")]([ExtResource("4_innby"), ExtResource("5_t12i1")])
 recipe_row_scene = ExtResource("5_3t0k7")
 
 [node name="Root" type="Control" parent="." unique_id=2016152851]

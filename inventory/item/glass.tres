@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_33wgx")
-name = "glass"
+name = "bucket_water"
 metadata/_custom_type_script = "uid://dwqo51p6jj6gf"
