@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="G Pro"
-run/main_scene="res://scenes/main_menu.tscn"
+run/main_scene="uid://b8my1nfjqjym2"
 config/features=PackedStringArray("4.7", "Forward Plus")
 
 [autoload]
@@ -20,8 +20,6 @@ global="*uid://c6fau7tjn4xmd"
 PlayerManager="*uid://c0u6y0gwr8vwe"
 QuestManager="*uid://vtrsawnemtdb"
 DialogueUI="*uid://dwvyhvm2kqki5"
-SettingsManager="*res://script/settings_manager.gd"
-SaveManager="*res://script/save_manager.gd"
 
 [display]
 
