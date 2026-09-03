@@ -20,7 +20,8 @@ func erupt() -> void:
 	erupted = true
 	age = 0.0
 	if is_node_ready():
-		sprite.frame = 2
+		# Peak/impact frame is visible immediately on the boss damage tick.
+		sprite.frame = 4
 		sprite.modulate.a = 1.0
 
 func _process(delta: float) -> void:
@@ -28,8 +29,8 @@ func _process(delta: float) -> void:
 	if not erupted:
 		sprite.frame = 0 if age < windup * 0.65 else 1
 		return
-	# Grow, peak, twist, retreat, disperse. Frame timing is independent of damage checks.
-	var stages := [2, 3, 4, 5, 6, 7]
+	# Impact first, then cosmetic retreat; never a second damage event.
+	var stages := [4, 5, 6, 7]
 	sprite.frame = stages[mini(int(age / 0.13), stages.size() - 1)]
 	sprite.modulate.a = 1.0 - clampf((age - 0.65) / 0.3, 0.0, 1.0)
 	if age >= 0.95:

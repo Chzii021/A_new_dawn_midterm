@@ -83,7 +83,7 @@ func _physics_process(delta: float) -> void:
 			if direction.length_squared() > 0.0:
 				facing = direction
 				sprite.flip_h = direction.x > 0.0
-			var distance: float = global_position.distance_to(target.global_position)
+			var distance: float = to_local(target.global_position).length()
 			if distance < 42.0 or (attacks_started % 3 == 2 and distance < 170.0):
 				_begin_attack()
 			else:
@@ -94,7 +94,9 @@ func _physics_process(delta: float) -> void:
 			if state_time >= state_duration:
 				_enter(BossState.STRIKE, 0.24)
 				animation.play("sweep" if attack == Attack.SWEEP else "roots")
-				if is_instance_valid(_root_effect):
+				# Apply the impact pose on the same tick as damage, not next render.
+				animation.advance(0.0)
+				if attack == Attack.ROOTS and is_instance_valid(_root_effect):
 					_root_effect.show()
 					_root_effect.erupt()
 				_apply_attack()
@@ -120,7 +122,8 @@ func _begin_attack() -> void:
 	attack = Attack.ROOTS if attacks_started % 3 == 2 else Attack.SWEEP
 	attacks_started += 1
 	# Telegraph position is locked now, never follows the player during the windup.
-	attack_direction = facing.normalized() if not facing.is_zero_approx() else Vector2.DOWN
+	var world_direction: Vector2 = facing.normalized() if not facing.is_zero_approx() else Vector2.DOWN
+	attack_direction = (to_local(global_position + world_direction) - to_local(global_position)).normalized()
 	attack_center = target.global_position if attack == Attack.ROOTS else global_position
 	var duration: float = 1.15 if attack == Attack.ROOTS else 0.85
 	_enter(BossState.WINDUP, duration * (0.8 if phase == 2 else 1.0))
@@ -133,7 +136,8 @@ func _begin_attack() -> void:
 		_root_effect.hide()
 		_root_effect.configure(state_duration, roots_radius)
 		get_parent().add_child(_root_effect)
-		_root_effect.global_position = attack_center
+		# Match the exact basis used by the ground footprint, including room scale.
+		_root_effect.global_transform = Transform2D(global_transform.x, global_transform.y, attack_center)
 
 func _begin_recovery() -> void:
 	# Choose once per recovery; crossing half health does not restart the timer.
@@ -146,9 +150,10 @@ func _begin_recovery() -> void:
 	animation.play(clip if tired else clip + "_normal")
 
 func _point_in_attack(point: Vector2) -> bool:
-	var offset: Vector2 = point - attack_center
+	# Drawing and hit tests share local space, including non-uniform parent scale.
+	var offset: Vector2 = to_local(point) - to_local(attack_center)
 	if attack == Attack.ROOTS:
-		return offset.length() <= roots_radius + 4.0
+		return offset.length() <= roots_radius
 	# No circular padding behind the boss: telegraph and damage share this sector.
 	return offset.length() <= sweep_radius and (offset.is_zero_approx() or offset.normalized().dot(attack_direction) >= cos(deg_to_rad(sweep_angle_degrees * 0.5)))
 
@@ -230,8 +235,9 @@ func _draw() -> void:
 		draw_line(center, points[1], color, 1.5)
 		draw_line(center, points[-1], color, 1.5)
 		draw_arc(center, radius, start, finish, 32, color, 1.5)
-		var progress: float = clampf(state_time / state_duration, 0, 1)
-		draw_arc(center, radius - 3, start, lerpf(start, finish, progress), 32, Color("fff1b3"), 5)
+		var fade: float = 1.0 - clampf(state_time / state_duration, 0, 1)
+		# Whole sector hits once at impact; do not imply a delayed moving hitbox.
+		draw_arc(center, radius - 3, start, finish, 32, Color(Color("fff1b3"), fade), 5)
 		return
 	draw_circle(center, radius, Color(color, 0.3))
 

@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_rovny")
-name = "glass"
+name = "coin"
 metadata/_custom_type_script = "uid://dwqo51p6jj6gf"

@@ -1,0 +1,593 @@
+[gd_scene format=3 uid="uid://w6sc6cfkjmrm"]
+
+[ext_resource type="Script" uid="uid://x5be3mcag2ig" path="res://script/main_menu.gd" id="1_menu"]
+[ext_resource type="Texture2D" uid="uid://clkpmybodr6gt" path="res://art/menu_background.png" id="2_background"]
+[ext_resource type="Texture2D" uid="uid://bbi4cxau530h" path="res://art/title_logo.png" id="3_logo"]
+[ext_resource type="Shader" uid="uid://bfud6abi2unso" path="res://script/animated_menu_background.gdshader" id="4_background_shader"]
+[ext_resource type="AudioStream" uid="uid://ctxk3l0kpanoa" path="res://sound/menu_music.mp3" id="5_menu_music"]
+[ext_resource type="AudioStream" uid="uid://xfcly7uhsgvm" path="res://sound/nature_forest.wav" id="6_breeze"]
+[ext_resource type="Texture2D" uid="uid://4y4iueecsnka" path="res://art/menu_button_wood.png" id="7_button_wood"]
+[ext_resource type="Texture2D" uid="uid://cd8ijsw6emsm2" path="res://art/button_start.png" id="8_start"]
+[ext_resource type="Texture2D" uid="uid://cr8j472x4ev1v" path="res://art/button_continue.png" id="9_continue"]
+[ext_resource type="Texture2D" uid="uid://by7jaoy53ajwl" path="res://art/button_new_game.png" id="10_new_game"]
+[ext_resource type="Texture2D" uid="uid://prgx0hn8o10v" path="res://art/button_setting.png" id="11_setting"]
+[ext_resource type="Texture2D" uid="uid://tqb7rmpk4d6j" path="res://art/button_credit.png" id="12_credit"]
+[ext_resource type="Texture2D" uid="uid://bl8ajun5mwj5g" path="res://art/button_exit.png" id="13_exit"]
+[ext_resource type="Texture2D" uid="uid://d1uqu4p2iu8vp" path="res://art/button_back.png" id="14_back"]
+[ext_resource type="Texture2D" uid="uid://clcp7ajto11c0" path="res://art/settings_plus.png" id="15_plus"]
+[ext_resource type="Texture2D" uid="uid://bnyofk8rhyoj" path="res://art/settings_minus.png" id="16_minus"]
+[ext_resource type="Texture2D" uid="uid://dupkv4cet20lb" path="res://art/settings_title.png" id="17_settings_title"]
+[ext_resource type="Texture2D" uid="uid://blkfb3fxx7sgn" path="res://art/settings_slider_fill.png" id="21_slider_fill"]
+[ext_resource type="Texture2D" uid="uid://cvtc38qg6fbwb" path="res://art/settings_slider_track.png" id="22_slider_track"]
+[ext_resource type="Texture2D" uid="uid://y4hm4v6wwp00" path="res://art/settings_slider_handle.svg" id="23_slider_knob"]
+
+[sub_resource type="StyleBoxTexture" id="Style_button_disabled"]
+content_margin_left = 14.0
+content_margin_top = 5.0
+content_margin_right = 14.0
+content_margin_bottom = 5.0
+texture = ExtResource("7_button_wood")
+texture_margin_left = 104.0
+texture_margin_top = 58.0
+texture_margin_right = 104.0
+texture_margin_bottom = 58.0
+modulate_color = Color(0.42, 0.42, 0.42, 0.82)
+
+[sub_resource type="StyleBoxTexture" id="Style_button_hover"]
+content_margin_left = 14.0
+content_margin_top = 5.0
+content_margin_right = 14.0
+content_margin_bottom = 5.0
+texture = ExtResource("7_button_wood")
+texture_margin_left = 104.0
+texture_margin_top = 58.0
+texture_margin_right = 104.0
+texture_margin_bottom = 58.0
+modulate_color = Color(1.16, 1.11, 0.9, 1)
+
+[sub_resource type="StyleBoxFlat" id="Style_button"]
+bg_color = Color(0.12, 0.3, 0.22, 0.94)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.55, 0.83, 0.5, 0.65)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxTexture" id="Style_button_pressed"]
+content_margin_left = 14.0
+content_margin_top = 7.0
+content_margin_right = 14.0
+content_margin_bottom = 3.0
+texture = ExtResource("7_button_wood")
+texture_margin_left = 104.0
+texture_margin_top = 58.0
+texture_margin_right = 104.0
+texture_margin_bottom = 58.0
+modulate_color = Color(0.72, 0.72, 0.72, 1)
+
+[sub_resource type="StyleBoxTexture" id="Style_slider_fill"]
+texture = ExtResource("21_slider_fill")
+texture_margin_left = 20.0
+texture_margin_top = 8.0
+texture_margin_right = 20.0
+texture_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxTexture" id="Style_slider_track"]
+texture = ExtResource("22_slider_track")
+texture_margin_left = 32.0
+texture_margin_top = 8.0
+texture_margin_right = 32.0
+texture_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxEmpty" id="Style_empty"]
+
+[sub_resource type="Theme" id="Theme_menu"]
+Button/colors/font_color = Color(1, 0.82, 0.32, 1)
+Button/colors/font_disabled_color = Color(0.55, 0.48, 0.34, 1)
+Button/colors/font_focus_color = Color(1, 0.94, 0.58, 1)
+Button/colors/font_hover_color = Color(1, 0.94, 0.58, 1)
+Button/colors/font_outline_color = Color(0.12, 0.045, 0.01, 1)
+Button/colors/font_pressed_color = Color(0.95, 0.7, 0.22, 1)
+Button/constants/outline_size = 2
+Button/styles/disabled = SubResource("Style_button_disabled")
+Button/styles/focus = SubResource("Style_button_hover")
+Button/styles/hover = SubResource("Style_button_hover")
+Button/styles/normal = SubResource("Style_button")
+Button/styles/pressed = SubResource("Style_button_pressed")
+HSlider/icons/grabber = ExtResource("23_slider_knob")
+HSlider/icons/grabber_highlight = ExtResource("23_slider_knob")
+HSlider/styles/grabber_area = SubResource("Style_slider_fill")
+HSlider/styles/grabber_area_highlight = SubResource("Style_slider_fill")
+HSlider/styles/slider = SubResource("Style_slider_track")
+TextureButton/styles/focus = SubResource("Style_empty")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_background"]
+shader = ExtResource("4_background_shader")
+shader_parameter/camera_drift = 0.006
+shader_parameter/cloud_motion = 0.009
+shader_parameter/grass_sway = 0.0025
+shader_parameter/water_motion = 0.003
+
+[sub_resource type="Gradient" id="Gradient_particles"]
+offsets = PackedFloat32Array(0, 0.18, 0.72, 1)
+colors = PackedColorArray(1, 0.76, 0.28, 0, 1, 0.76, 0.28, 0.72, 1, 0.9, 0.48, 0.52, 1, 0.75, 0.2, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture_particles"]
+gradient = SubResource("Gradient_particles")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dust"]
+emission_shape = 3
+emission_box_extents = Vector3(576, 324, 1)
+direction = Vector3(0.25, -1, 0)
+spread = 180.0
+initial_velocity_min = 2.0
+initial_velocity_max = 7.0
+gravity = Vector3(0, -1.2, 0)
+scale_min = 0.7
+scale_max = 1.8
+color_ramp = SubResource("GradientTexture_particles")
+
+[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_water"]
+mix_rate = 22050.0
+buffer_length = 0.35
+
+[sub_resource type="StyleBoxFlat" id="Style_settings_backdrop"]
+bg_color = Color(0.015, 0.012, 0.008, 0.68)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.87, 0.62, 0.18, 0.55)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 0.45)
+shadow_size = 5
+
+[node name="MainMenu" type="Control" unique_id=1357557034]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_menu")
+script = ExtResource("1_menu")
+
+[node name="Background" type="TextureRect" parent="." unique_id=720425814]
+material = SubResource("ShaderMaterial_background")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_background")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="AmbientParticles" type="GPUParticles2D" parent="." unique_id=1884671659]
+amount = 46
+lifetime = 7.0
+preprocess = 7.0
+randomness = 0.85
+visibility_rect = Rect2(-576, -324, 1152, 648)
+process_material = SubResource("ParticleProcessMaterial_dust")
+
+[node name="MenuMusic" type="AudioStreamPlayer" parent="." unique_id=1234594507]
+stream = ExtResource("5_menu_music")
+volume_db = -18.0
+autoplay = true
+
+[node name="Breeze" type="AudioStreamPlayer" parent="." unique_id=1378876408]
+stream = ExtResource("6_breeze")
+volume_db = -27.0
+autoplay = true
+
+[node name="WaterStream" type="AudioStreamPlayer" parent="." unique_id=1518086944]
+stream = SubResource("AudioStreamGenerator_water")
+volume_db = -16.0
+autoplay = true
+
+[node name="Sun" type="ColorRect" parent="." unique_id=67651814]
+visible = false
+layout_mode = 0
+offset_left = 22.0
+offset_top = 18.0
+offset_right = 26.0
+offset_bottom = 198.0
+mouse_filter = 2
+color = Color(0.82, 0.68, 0.28, 0.35)
+
+[node name="TitleBlock" type="VBoxContainer" parent="." unique_id=715370170]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.035
+anchor_right = 1.0
+anchor_bottom = 0.2
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = -3
+
+[node name="Title" type="Label" parent="TitleBlock" unique_id=1864924773]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.93, 0.88, 0.6, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.7)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_font_sizes/font_size = 24
+text = "A NEW DAWN"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="TitleBlock" unique_id=1823227507]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.68, 0.82, 0.68, 1)
+theme_override_font_sizes/font_size = 8
+text = "THE JOURNEY BEGINS AT SUNRISE"
+horizontal_alignment = 1
+
+[node name="TitleLogo" type="TextureRect" parent="." unique_id=485017715]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.32
+anchor_top = 0.02
+anchor_right = 0.68
+anchor_bottom = 0.29
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_logo")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Center" type="Control" parent="." unique_id=2120346804]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.9969607)
+mouse_filter = 1
+
+[node name="SettingsBackdrop" type="Panel" parent="Center" unique_id=517668871]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15
+anchor_top = 0.06
+anchor_right = 0.85
+anchor_bottom = 0.94
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Style_settings_backdrop")
+
+[node name="MenuCard" type="PanelContainer" parent="Center" unique_id=1043804880]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.16
+anchor_top = 0.31
+anchor_right = 0.84
+anchor_bottom = 0.94
+offset_left = 101.52002
+offset_right = -97.52002
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.0139209, 0.9965531)
+theme_override_styles/panel = SubResource("Style_empty")
+
+[node name="Panels" type="MarginContainer" parent="Center/MenuCard" unique_id=387956874]
+layout_mode = 2
+
+[node name="MainPanel" type="VBoxContainer" parent="Center/MenuCard/Panels" unique_id=1718395720]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="Heading" type="Label" parent="Center/MenuCard/Panels/MainPanel" unique_id=339490122]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "MAIN MENU"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="Center/MenuCard/Panels/MainPanel" unique_id=375730518]
+visible = false
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+
+[node name="PlayButton" type="TextureButton" parent="Center/MenuCard/Panels/MainPanel" unique_id=1824439392]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+texture_normal = ExtResource("8_start")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="SettingsButton" type="TextureButton" parent="Center/MenuCard/Panels/MainPanel" unique_id=1537084933]
+layout_mode = 2
+size_flags_vertical = 3
+texture_normal = ExtResource("11_setting")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="CreditsButton" type="TextureButton" parent="Center/MenuCard/Panels/MainPanel" unique_id=1001535291]
+layout_mode = 2
+size_flags_vertical = 3
+texture_normal = ExtResource("12_credit")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="ExitButton" type="TextureButton" parent="Center/MenuCard/Panels/MainPanel" unique_id=258029710]
+layout_mode = 2
+size_flags_vertical = 3
+texture_normal = ExtResource("13_exit")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="PlayPanel" type="VBoxContainer" parent="Center/MenuCard/Panels" unique_id=848089460]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 3
+alignment = 1
+
+[node name="Heading" type="Label" parent="Center/MenuCard/Panels/PlayPanel" unique_id=1979922046]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "CHOOSE YOUR JOURNEY"
+horizontal_alignment = 1
+
+[node name="Hint" type="Label" parent="Center/MenuCard/Panels/PlayPanel" unique_id=812634284]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.78, 0.7, 1)
+theme_override_font_sizes/font_size = 8
+text = "Begin again or continue from your last save"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="Center/MenuCard/Panels/PlayPanel" unique_id=1031365320]
+visible = false
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+
+[node name="NewGameButton" type="TextureButton" parent="Center/MenuCard/Panels/PlayPanel" unique_id=28416578]
+layout_mode = 2
+size_flags_vertical = 3
+texture_normal = ExtResource("10_new_game")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="LoadButton" type="TextureButton" parent="Center/MenuCard/Panels/PlayPanel" unique_id=1568326075]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+texture_normal = ExtResource("9_continue")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="BackButton" type="TextureButton" parent="Center/MenuCard/Panels/PlayPanel" unique_id=1846038191]
+layout_mode = 2
+size_flags_vertical = 3
+texture_normal = ExtResource("14_back")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="SettingsPanel" type="VBoxContainer" parent="Center/MenuCard/Panels" unique_id=418967872]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Heading" type="TextureRect" parent="Center/MenuCard/Panels/SettingsPanel" unique_id=2103050503]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+texture = ExtResource("17_settings_title")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="BrightnessLabel" type="HBoxContainer" parent="Center/MenuCard/Panels/SettingsPanel" unique_id=2073788651]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Text" type="Label" parent="Center/MenuCard/Panels/SettingsPanel/BrightnessLabel" unique_id=606934790]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.9, 0.52, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.055, 0.005, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 12
+text = "BRIGHTNESS"
+
+[node name="BrightnessValue" type="Label" parent="Center/MenuCard/Panels/SettingsPanel/BrightnessLabel" unique_id=1100598699]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "100%"
+
+[node name="BrightnessMinus" type="TextureButton" parent="Center/MenuCard/Panels/SettingsPanel/BrightnessLabel" unique_id=1253365910]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+texture_normal = ExtResource("16_minus")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="BrightnessPlus" type="TextureButton" parent="Center/MenuCard/Panels/SettingsPanel/BrightnessLabel" unique_id=778373124]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+texture_normal = ExtResource("15_plus")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="BrightnessSlider" type="HSlider" parent="Center/MenuCard/Panels/SettingsPanel" unique_id=337713307]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+min_value = 1.0
+value = 100.0
+
+[node name="MusicLabel" type="HBoxContainer" parent="Center/MenuCard/Panels/SettingsPanel" unique_id=1875459011]
+layout_mode = 2
+
+[node name="Text" type="Label" parent="Center/MenuCard/Panels/SettingsPanel/MusicLabel" unique_id=806823404]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.9, 0.52, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.055, 0.005, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 12
+text = "MUSIC VOLUME"
+
+[node name="MusicValue" type="Label" parent="Center/MenuCard/Panels/SettingsPanel/MusicLabel" unique_id=2016937438]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "80%"
+
+[node name="MusicMinus" type="TextureButton" parent="Center/MenuCard/Panels/SettingsPanel/MusicLabel" unique_id=977304423]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+texture_normal = ExtResource("16_minus")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="MusicPlus" type="TextureButton" parent="Center/MenuCard/Panels/SettingsPanel/MusicLabel" unique_id=2038571059]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+texture_normal = ExtResource("15_plus")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="MusicSlider" type="HSlider" parent="Center/MenuCard/Panels/SettingsPanel" unique_id=286906577]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+value = 80.0
+
+[node name="SfxLabel" type="HBoxContainer" parent="Center/MenuCard/Panels/SettingsPanel" unique_id=743144333]
+layout_mode = 2
+
+[node name="Text" type="Label" parent="Center/MenuCard/Panels/SettingsPanel/SfxLabel" unique_id=1366047742]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.9, 0.52, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.055, 0.005, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 12
+text = "SOUND EFFECTS VOLUME"
+
+[node name="SfxValue" type="Label" parent="Center/MenuCard/Panels/SettingsPanel/SfxLabel" unique_id=1480350603]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "80%"
+
+[node name="SfxMinus" type="TextureButton" parent="Center/MenuCard/Panels/SettingsPanel/SfxLabel" unique_id=1389869071]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+texture_normal = ExtResource("16_minus")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="SfxPlus" type="TextureButton" parent="Center/MenuCard/Panels/SettingsPanel/SfxLabel" unique_id=339034408]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+texture_normal = ExtResource("15_plus")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="SfxSlider" type="HSlider" parent="Center/MenuCard/Panels/SettingsPanel" unique_id=1134881975]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+value = 80.0
+
+[node name="BackButton" type="TextureButton" parent="Center/MenuCard/Panels/SettingsPanel" unique_id=298017893]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+texture_normal = ExtResource("14_back")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="CreditsPanel" type="VBoxContainer" parent="Center/MenuCard/Panels" unique_id=824914517]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Heading" type="Label" parent="Center/MenuCard/Panels/CreditsPanel" unique_id=400577390]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "CREDITS"
+horizontal_alignment = 1
+
+[node name="Game" type="Label" parent="Center/MenuCard/Panels/CreditsPanel" unique_id=1740088244]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.93, 0.88, 0.6, 1)
+theme_override_font_sizes/font_size = 11
+text = "A New Dawn"
+horizontal_alignment = 1
+
+[node name="Creators" type="Label" parent="Center/MenuCard/Panels/CreditsPanel" unique_id=581698588]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Created by Group 4
+
+ชวกร สมทรัพย์ — 673380312-5
+มหาสมุทร แมทิโอ เจแคน — 673380339-5
+เธียรธรรม ประทุมรัตน์ — 673380359-9
+
+Made with Godot Engine"
+horizontal_alignment = 1
+
+[node name="BackButton" type="TextureButton" parent="Center/MenuCard/Panels/CreditsPanel" unique_id=1386531450]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+texture_normal = ExtResource("14_back")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="StatusLabel" type="Label" parent="." unique_id=1720144202]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -12.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 0.55, 0.4, 1)
+theme_override_font_sizes/font_size = 8
+horizontal_alignment = 1
+
+[connection signal="pressed" from="Center/MenuCard/Panels/MainPanel/PlayButton" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Center/MenuCard/Panels/MainPanel/SettingsButton" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="Center/MenuCard/Panels/MainPanel/CreditsButton" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="Center/MenuCard/Panels/MainPanel/ExitButton" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="Center/MenuCard/Panels/PlayPanel/NewGameButton" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="Center/MenuCard/Panels/PlayPanel/LoadButton" to="." method="_on_load_game_pressed"]
+[connection signal="pressed" from="Center/MenuCard/Panels/PlayPanel/BackButton" to="." method="_on_back_pressed"]
+[connection signal="value_changed" from="Center/MenuCard/Panels/SettingsPanel/BrightnessSlider" to="." method="_on_brightness_changed"]
+[connection signal="value_changed" from="Center/MenuCard/Panels/SettingsPanel/MusicSlider" to="." method="_on_music_changed"]
+[connection signal="value_changed" from="Center/MenuCard/Panels/SettingsPanel/SfxSlider" to="." method="_on_sfx_changed"]
+[connection signal="pressed" from="Center/MenuCard/Panels/SettingsPanel/BackButton" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Center/MenuCard/Panels/CreditsPanel/BackButton" to="." method="_on_back_pressed"]
