@@ -22,6 +22,7 @@ QuestManager="*uid://vtrsawnemtdb"
 DialogueUI="*uid://dwvyhvm2kqki5"
 SettingsManager="*res://script/settings_manager.gd"
 SaveManager="*res://script/save_manager.gd"
+PauseSettings="*res://scenes/pause_settings.tscn"
 
 [display]
 

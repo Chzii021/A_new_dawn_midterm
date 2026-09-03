@@ -643,6 +643,7 @@ func talk_to_npc() -> void:
 		if accepted:
 
 			QuestManager.start_current_quest()
+			SaveManager.save_game()
 
 
 	# =========================================
@@ -707,6 +708,7 @@ func talk_to_npc() -> void:
 
 		# Quest ปัจจุบันจบ
 		QuestManager.complete_current_quest()
+		SaveManager.save_game()
 
 
 		# =====================================
@@ -732,6 +734,7 @@ func talk_to_npc() -> void:
 			if accepted:
 
 				QuestManager.start_current_quest()
+				SaveManager.save_game()
 
 
 		else:

@@ -1,16 +1,20 @@
 extends Node
 
-const SAVE_PATH := "user://savegame.cfg"
+const LEGACY_SAVE_PATH := "user://savegame.cfg"
+const SAVE_PATH_FORMAT := "user://savegame_slot_%d.cfg"
+const SLOT_COUNT := 3
 const WORLD_SCENE := "res://scenes/world.tscn"
 const VILLAGE_SCENE := "res://scenes/village.tscn"
 const OPENING_STORY_SCENE := "res://scenes/opening_story.tscn"
 
 var game_active := false
+var active_slot := 1
 var _loaded_position := Vector2.ZERO
 var _has_loaded_position := false
 
 
 func _ready() -> void:
+	_migrate_legacy_save()
 	var timer := Timer.new()
 	timer.wait_time = 5.0
 	timer.autostart = true
@@ -19,11 +23,47 @@ func _ready() -> void:
 	get_tree().node_added.connect(_on_node_added)
 
 
-func has_save() -> bool:
-	return FileAccess.file_exists(SAVE_PATH)
+func _save_path(slot: int) -> String:
+	return SAVE_PATH_FORMAT % clampi(slot, 1, SLOT_COUNT)
 
 
-func start_new_game() -> void:
+func has_save(slot: int = 0) -> bool:
+	if slot > 0:
+		return FileAccess.file_exists(_save_path(slot))
+	for index in range(1, SLOT_COUNT + 1):
+		if FileAccess.file_exists(_save_path(index)):
+			return true
+	return false
+
+
+func get_slot_info(slot: int) -> Dictionary:
+	var path := _save_path(slot)
+	if not FileAccess.file_exists(path):
+		return {"exists": false, "slot": slot}
+	var config := ConfigFile.new()
+	if config.load(path) != OK:
+		return {"exists": false, "slot": slot, "corrupt": true}
+	return {
+		"exists": true,
+		"slot": slot,
+		"scene": str(config.get_value("player", "scene", "world")),
+		"health": int(config.get_value("player", "health", 100)),
+		"saved_at": str(config.get_value("save", "saved_at", "Existing save"))
+	}
+
+
+func delete_save(slot: int) -> bool:
+	var path := _save_path(slot)
+	if not FileAccess.file_exists(path):
+		return true
+	var error := DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
+	if error == OK and active_slot == slot:
+		game_active = false
+	return error == OK
+
+
+func start_new_game(slot: int = 1) -> void:
+	active_slot = clampi(slot, 1, SLOT_COUNT)
 	_reset_runtime_state()
 	game_active = true
 	_has_loaded_position = false
@@ -31,9 +71,10 @@ func start_new_game() -> void:
 	get_tree().change_scene_to_file(OPENING_STORY_SCENE)
 
 
-func load_game() -> bool:
+func load_game(slot: int = 1) -> bool:
+	active_slot = clampi(slot, 1, SLOT_COUNT)
 	var config := ConfigFile.new()
-	if config.load(SAVE_PATH) != OK:
+	if config.load(_save_path(active_slot)) != OK:
 		return false
 	global.current_scene = str(config.get_value("player", "scene", "world"))
 	global.player_health = int(config.get_value("player", "health", 100))
@@ -48,6 +89,7 @@ func load_game() -> bool:
 	global.pond_states = config.get_value("world", "ponds", {})
 	global.well_states = config.get_value("world", "wells", {})
 	global.npc_states = config.get_value("world", "npcs", {})
+	QuestManager.load_save_data(config.get_value("quests", "data", {}))
 	_load_inventory(config.get_value("inventory", "slots", []))
 	game_active = true
 	var scene_path := VILLAGE_SCENE if global.current_scene == "ciff_side" else WORLD_SCENE
@@ -65,6 +107,8 @@ func save_game() -> void:
 		_has_loaded_position = true
 	var config := ConfigFile.new()
 	config.set_value("save", "version", 1)
+	config.set_value("save", "slot", active_slot)
+	config.set_value("save", "saved_at", Time.get_datetime_string_from_system(false, true))
 	config.set_value("player", "scene", global.current_scene)
 	config.set_value("player", "health", global.player_health)
 	config.set_value("player", "max_health", global.player_max_health)
@@ -76,8 +120,19 @@ func save_game() -> void:
 	config.set_value("world", "ponds", global.pond_states)
 	config.set_value("world", "wells", global.well_states)
 	config.set_value("world", "npcs", global.npc_states)
+	config.set_value("quests", "data", QuestManager.get_save_data())
 	config.set_value("inventory", "slots", _serialize_inventory())
-	config.save(SAVE_PATH)
+	config.save(_save_path(active_slot))
+
+
+func _migrate_legacy_save() -> void:
+	if FileAccess.file_exists(LEGACY_SAVE_PATH) and not FileAccess.file_exists(_save_path(1)):
+		var copy_error := DirAccess.copy_absolute(
+			ProjectSettings.globalize_path(LEGACY_SAVE_PATH),
+			ProjectSettings.globalize_path(_save_path(1))
+		)
+		if copy_error == OK:
+			DirAccess.remove_absolute(ProjectSettings.globalize_path(LEGACY_SAVE_PATH))
 
 
 func _reset_runtime_state() -> void:
@@ -93,6 +148,7 @@ func _reset_runtime_state() -> void:
 	global.pond_states.clear()
 	global.well_states.clear()
 	global.npc_states.clear()
+	QuestManager.reset_progress()
 	for slot in _inventory().slots:
 		slot.item = null
 		slot.amount = 0
