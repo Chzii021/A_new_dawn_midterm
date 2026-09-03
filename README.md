@@ -17,20 +17,9 @@
 เกม **"ฮอดมื้อใหม่ (A New Dawn)"** เป็นเกม 2D Platformer ที่ตีความพื้นบ้านนภาคอีสานไทยใหม่ในมุมของมารดา  
 ผู้เล่นเป็นแม่ของไอ้ทอง เดินทางนำกล่องข้าวไปส่งลูก ต้องหลบศัตรู กับดัก และเก็บกระติ๊บข้าวผ่าน 4 ด่าน
 
-### Progress (ต่อจาก Lab 04)
-
-- หลอดความอดทนของไอ้ทอง (ลดลงตามเวลา)
-- กระสุนหินจำกัด + เก็บก้อนหินเติมกระสุน
-- หมูป่า / ควาย ต้องยิงหลายครั้งถึงตาย
-- ชนควาย = ตายทันที / ชนหมูป่า = เลือดเหลือครึ่ง
-- แสดงปุ่มควบคุมตอนเริ่มด่าน
-
 
 ### ลิงก์
 
-- **GitHub Project:** [ppppppwaqrd/a-mothers-walk-midterm](https://github.com/ppppppwaqrd/a-mothers-walk-midterm)
-- **Play Game (GitHub Pages):** [เล่นเกม](https://ppppppwaqrd.github.io/a-mothers-walk-midterm/)
-- **Lab 04 (ส่งแล้ว):** [lab04-a-mothers-walk](https://github.com/ppppppwaqrd/lab04-a-mothers-walk)
 - **Main game** https://chzii021.github.io/A_new_dawn_midterm/
 
 ---
@@ -41,6 +30,9 @@
 |---|---|
 | **A / Left** | เดินซ้าย |
 | **D / Right** | เดินขวา |
+| **s / down** | เดินลง |
+| **w / up** | เดินขึ้น |
+| **c / craft** | เมนูคราฟของ |
 
 ---
 
