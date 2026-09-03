@@ -32,7 +32,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="item_display" type="TextureRect" parent="CenterContainer" unique_id=1255458981]
-custom_minimum_size = Vector2(25, 25)
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 mouse_filter = 2
 expand_mode = 1

@@ -67,7 +67,7 @@ func _get_drag_data(_at_position: Vector2) -> Variant:
 
 	var preview := TextureRect.new()
 	preview.texture = slot.item.texture
-	preview.custom_minimum_size = Vector2(20, 20)
+	preview.custom_minimum_size = Vector2(40, 40)
 	
 	preview.expand_mode = (
 		TextureRect.EXPAND_IGNORE_SIZE
